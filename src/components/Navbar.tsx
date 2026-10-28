@@ -1,0 +1,209 @@
+
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ArrowRight,
+  ChevronDown,
+  Code2,
+  GraduationCap,
+  Menu,
+  X,
+} from "lucide-react";
+
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Programmes", href: "/programmes" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+export default function Navbar() {
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
+  return (
+    <header className="dl-navbar">
+      <div className="dl-navbar-container">
+        {/* Brand */}
+        <Link
+          href="/"
+          className="dl-brand"
+          aria-label="Decent Learning homepage"
+          onClick={closeMenu}
+        >
+          <span className="dl-brand-logo">
+            <img
+              src="/DL.jpeg"
+              alt="Decent Learning logo"
+              className="dl-logo-image"
+            />
+          </span>
+
+          <span className="dl-brand-copy">
+            <span className="dl-brand-name">Decent Learning</span>
+            <span className="dl-brand-tagline">
+              Learn. Build. Grow.
+            </span>
+          </span>
+        </Link>
+
+        {/* Desktop navigation */}
+        <nav className="dl-desktop-nav" aria-label="Main navigation">
+          {navLinks.map((link) => {
+            const isActive =
+              link.href === "/"
+                ? pathname === "/"
+                : pathname === link.href ||
+                  pathname.startsWith(`${link.href}/`);
+
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`dl-nav-link ${
+                  isActive ? "is-active" : ""
+                }`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {link.label}
+                {isActive && (
+                  <motion.span
+                    className="dl-nav-indicator"
+                    layoutId="dl-nav-indicator"
+                    transition={{
+                      type: "spring",
+                      stiffness: 380,
+                      damping: 30,
+                    }}
+                  />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Desktop actions */}
+        <div className="dl-nav-actions">
+          <Link href="/login" className="dl-login-link">
+            Log in
+          </Link>
+
+          <Link href="/register" className="dl-get-started">
+            <span>Start Learning</span>
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+
+        {/* Mobile menu button */}
+        <button
+          type="button"
+          className="dl-menu-toggle"
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          aria-controls="dl-mobile-navigation"
+          onClick={() => setMenuOpen((current) => !current)}
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={menuOpen ? "close" : "menu"}
+              initial={{ opacity: 0, rotate: -35, scale: 0.8 }}
+              animate={{ opacity: 1, rotate: 0, scale: 1 }}
+              exit={{ opacity: 0, rotate: 35, scale: 0.8 }}
+              transition={{ duration: 0.15 }}
+              className="dl-menu-icon"
+            >
+              {menuOpen ? <X size={23} /> : <Menu size={23} />}
+            </motion.span>
+          </AnimatePresence>
+        </button>
+      </div>
+
+      {/* Mobile navigation */}
+      <AnimatePresence initial={false}>
+        {menuOpen && (
+          <motion.div
+            id="dl-mobile-navigation"
+            className="dl-mobile-panel"
+            initial={{ opacity: 0, height: 0, y: -8 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -8 }}
+            transition={{ duration: 0.22, ease: "easeInOut" }}
+          >
+            <nav
+              className="dl-mobile-nav"
+              aria-label="Mobile navigation"
+            >
+              {navLinks.map((link, index) => {
+                const isActive =
+                  link.href === "/"
+                    ? pathname === "/"
+                    : pathname === link.href ||
+                      pathname.startsWith(`${link.href}/`);
+
+                return (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.18,
+                      delay: index * 0.035,
+                    }}
+                  >
+                    <Link
+                      href={link.href}
+                      onClick={closeMenu}
+                      className={`dl-mobile-link ${
+                        isActive ? "is-active" : ""
+                      }`}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      <span>{link.label}</span>
+                      <ArrowRight size={17} />
+                    </Link>
+                  </motion.div>
+                );
+              })}
+
+              <div className="dl-mobile-actions">
+                <Link
+                  href="/login"
+                  className="dl-mobile-login"
+                  onClick={closeMenu}
+                >
+                  Log in
+                </Link>
+
+                <Link
+                  href="/register"
+                  className="dl-mobile-cta"
+                  onClick={closeMenu}
+                >
+                  <GraduationCap size={19} />
+                  Start Learning
+                  <ArrowRight size={17} />
+                </Link>
+              </div>
+
+              <div className="dl-mobile-footer">
+                <span className="dl-mobile-footer-icon">
+                  <Code2 size={16} />
+                </span>
+                <span>Learn technology. Build your future.</span>
+              </div>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+}
