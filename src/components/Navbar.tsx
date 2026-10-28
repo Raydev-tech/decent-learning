@@ -1,13 +1,12 @@
 
 "use client";
 
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowRight,
-  ChevronDown,
   Code2,
   GraduationCap,
   Menu,
@@ -22,7 +21,61 @@ const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
+/* =====================================================
+   NAVBAR WRAPPER
+   The Suspense boundary must be outside the component
+   that calls usePathname().
+===================================================== */
+
 export default function Navbar() {
+  return (
+    <Suspense fallback={<NavbarFallback />}>
+      <NavbarContent />
+    </Suspense>
+  );
+}
+
+/* =====================================================
+   NAVBAR FALLBACK
+===================================================== */
+
+function NavbarFallback() {
+  return (
+    <header className="dl-navbar">
+      <div className="dl-navbar-container">
+        <Link
+          href="/"
+          className="dl-brand"
+          aria-label="Decent Learning homepage"
+        >
+          <span className="dl-brand-logo">
+            <img
+              src="/DL.jpeg"
+              alt="Decent Learning logo"
+              className="dl-logo-image"
+            />
+          </span>
+
+          <span className="dl-brand-copy">
+            <span className="dl-brand-name">
+              Decent Learning
+            </span>
+
+            <span className="dl-brand-tagline">
+              Learn. Build. Grow.
+            </span>
+          </span>
+        </Link>
+      </div>
+    </header>
+  );
+}
+
+/* =====================================================
+   MAIN NAVBAR
+===================================================== */
+
+function NavbarContent() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,10 +83,22 @@ export default function Navbar() {
     setMenuOpen(false);
   }
 
+  function isLinkActive(href: string) {
+    if (href === "/") {
+      return pathname === "/";
+    }
+
+    return (
+      pathname === href ||
+      pathname.startsWith(`${href}/`)
+    );
+  }
+
   return (
     <header className="dl-navbar">
       <div className="dl-navbar-container">
-        {/* Brand */}
+        {/* BRAND */}
+
         <Link
           href="/"
           className="dl-brand"
@@ -49,21 +114,24 @@ export default function Navbar() {
           </span>
 
           <span className="dl-brand-copy">
-            <span className="dl-brand-name">Decent Learning</span>
+            <span className="dl-brand-name">
+              Decent Learning
+            </span>
+
             <span className="dl-brand-tagline">
               Learn. Build. Grow.
             </span>
           </span>
         </Link>
 
-        {/* Desktop navigation */}
-        <nav className="dl-desktop-nav" aria-label="Main navigation">
+        {/* DESKTOP NAVIGATION */}
+
+        <nav
+          className="dl-desktop-nav"
+          aria-label="Main navigation"
+        >
           {navLinks.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname === link.href ||
-                  pathname.startsWith(`${link.href}/`);
+            const isActive = isLinkActive(link.href);
 
             return (
               <Link
@@ -72,9 +140,12 @@ export default function Navbar() {
                 className={`dl-nav-link ${
                   isActive ? "is-active" : ""
                 }`}
-                aria-current={isActive ? "page" : undefined}
+                aria-current={
+                  isActive ? "page" : undefined
+                }
               >
                 {link.label}
+
                 {isActive && (
                   <motion.span
                     className="dl-nav-indicator"
@@ -91,69 +162,117 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Desktop actions */}
+        {/* DESKTOP ACTIONS */}
+
         <div className="dl-nav-actions">
-          <Link href="/login" className="dl-login-link">
+          <Link
+            href="/login"
+            className="dl-login-link"
+          >
             Log in
           </Link>
 
-          <Link href="/register" className="dl-get-started">
+          <Link
+            href="/register"
+            className="dl-get-started"
+          >
             <span>Start Learning</span>
             <ArrowRight size={16} />
           </Link>
         </div>
 
-        {/* Mobile menu button */}
+        {/* MOBILE MENU BUTTON */}
+
         <button
           type="button"
           className="dl-menu-toggle"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            menuOpen
+              ? "Close navigation menu"
+              : "Open navigation menu"
+          }
           aria-expanded={menuOpen}
           aria-controls="dl-mobile-navigation"
-          onClick={() => setMenuOpen((current) => !current)}
+          onClick={() =>
+            setMenuOpen((current) => !current)
+          }
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.span
               key={menuOpen ? "close" : "menu"}
-              initial={{ opacity: 0, rotate: -35, scale: 0.8 }}
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              exit={{ opacity: 0, rotate: 35, scale: 0.8 }}
+              initial={{
+                opacity: 0,
+                rotate: -35,
+                scale: 0.8,
+              }}
+              animate={{
+                opacity: 1,
+                rotate: 0,
+                scale: 1,
+              }}
+              exit={{
+                opacity: 0,
+                rotate: 35,
+                scale: 0.8,
+              }}
               transition={{ duration: 0.15 }}
               className="dl-menu-icon"
             >
-              {menuOpen ? <X size={23} /> : <Menu size={23} />}
+              {menuOpen ? (
+                <X size={23} />
+              ) : (
+                <Menu size={23} />
+              )}
             </motion.span>
           </AnimatePresence>
         </button>
       </div>
 
-      {/* Mobile navigation */}
+      {/* MOBILE NAVIGATION */}
+
       <AnimatePresence initial={false}>
         {menuOpen && (
           <motion.div
             id="dl-mobile-navigation"
             className="dl-mobile-panel"
-            initial={{ opacity: 0, height: 0, y: -8 }}
-            animate={{ opacity: 1, height: "auto", y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -8 }}
-            transition={{ duration: 0.22, ease: "easeInOut" }}
+            initial={{
+              opacity: 0,
+              height: 0,
+              y: -8,
+            }}
+            animate={{
+              opacity: 1,
+              height: "auto",
+              y: 0,
+            }}
+            exit={{
+              opacity: 0,
+              height: 0,
+              y: -8,
+            }}
+            transition={{
+              duration: 0.22,
+              ease: "easeInOut",
+            }}
           >
             <nav
               className="dl-mobile-nav"
               aria-label="Mobile navigation"
             >
               {navLinks.map((link, index) => {
-                const isActive =
-                  link.href === "/"
-                    ? pathname === "/"
-                    : pathname === link.href ||
-                      pathname.startsWith(`${link.href}/`);
+                const isActive = isLinkActive(link.href);
 
                 return (
                   <motion.div
                     key={link.href}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
+                    initial={{
+                      opacity: 0,
+                      x: -10,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                    }}
                     transition={{
                       duration: 0.18,
                       delay: index * 0.035,
@@ -165,7 +284,9 @@ export default function Navbar() {
                       className={`dl-mobile-link ${
                         isActive ? "is-active" : ""
                       }`}
-                      aria-current={isActive ? "page" : undefined}
+                      aria-current={
+                        isActive ? "page" : undefined
+                      }
                     >
                       <span>{link.label}</span>
                       <ArrowRight size={17} />
@@ -173,6 +294,8 @@ export default function Navbar() {
                   </motion.div>
                 );
               })}
+
+              {/* MOBILE ACTIONS */}
 
               <div className="dl-mobile-actions">
                 <Link
@@ -189,16 +312,21 @@ export default function Navbar() {
                   onClick={closeMenu}
                 >
                   <GraduationCap size={19} />
-                  Start Learning
+                  <span>Start Learning</span>
                   <ArrowRight size={17} />
                 </Link>
               </div>
+
+              {/* MOBILE FOOTER */}
 
               <div className="dl-mobile-footer">
                 <span className="dl-mobile-footer-icon">
                   <Code2 size={16} />
                 </span>
-                <span>Learn technology. Build your future.</span>
+
+                <span>
+                  Learn technology. Build your future.
+                </span>
               </div>
             </nav>
           </motion.div>

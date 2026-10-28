@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,7 +22,10 @@ import {
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import { courses } from "@/src/lib/courses";
-import { curricula, type Curriculum } from "@/src/lib/curriculum";
+import {
+  curricula,
+  type Curriculum,
+} from "@/src/lib/curriculum";
 
 function createDefaultCurriculum(
   title: string,
@@ -46,7 +49,8 @@ function createDefaultCurriculum(
     modules: [
       {
         title: "Module 1: Introduction and Fundamentals",
-        description: "Build a foundation before moving to advanced topics.",
+        description:
+          "Build a foundation before moving to advanced topics.",
         lessons: [
           {
             title: `Introduction to ${title}`,
@@ -65,9 +69,13 @@ function createDefaultCurriculum(
       },
       {
         title: "Module 2: Essential Skills",
-        description: "Learn the tools and techniques used in this field.",
+        description:
+          "Learn the tools and techniques used in this field.",
         lessons: [
-          { title: "Understanding the tools", duration: "25 min" },
+          {
+            title: "Understanding the tools",
+            duration: "25 min",
+          },
           {
             title: "Working through practical examples",
             duration: "30 min",
@@ -80,22 +88,36 @@ function createDefaultCurriculum(
       },
       {
         title: "Module 3: Guided Practice",
-        description: "Strengthen your understanding through exercises.",
+        description:
+          "Strengthen your understanding through exercises.",
         lessons: [
           {
             title: "Follow a practical walkthrough",
             duration: "30 min",
           },
-          { title: "Complete a guided exercise", duration: "35 min" },
-          { title: "Review your work", duration: "20 min" },
+          {
+            title: "Complete a guided exercise",
+            duration: "35 min",
+          },
+          {
+            title: "Review your work",
+            duration: "20 min",
+          },
         ],
       },
       {
         title: "Module 4: Final Project",
-        description: "Bring your new knowledge together.",
+        description:
+          "Bring your new knowledge together.",
         lessons: [
-          { title: "Plan your project", duration: "20 min" },
-          { title: "Build your project", duration: "45 min" },
+          {
+            title: "Plan your project",
+            duration: "20 min",
+          },
+          {
+            title: "Build your project",
+            duration: "45 min",
+          },
           {
             title: "Review and present your results",
             duration: "25 min",
@@ -106,24 +128,99 @@ function createDefaultCurriculum(
   };
 }
 
+/* =====================================================
+   PAGE WRAPPER
+   Keep useParams inside the component rendered by
+   Suspense, not inside this outer page component.
+===================================================== */
+
 export default function ProgrammeDetailsPage() {
-  // Read the dynamic [slug] segment from the current route.
-  const params = useParams<{ slug: string | string[] }>();
+  return (
+    <Suspense fallback={<ProgrammeLoading />}>
+      <ProgrammeDetailsContent />
+    </Suspense>
+  );
+}
 
-const rawSlug = params.slug;
+function ProgrammeLoading() {
+  return (
+    <>
+      <Navbar />
 
-const slug = Array.isArray(rawSlug)
-  ? rawSlug[0]
-  : rawSlug;
+      <main
+        className="container"
+        style={{
+          minHeight: "60vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "70px 20px",
+          textAlign: "center",
+        }}
+      >
+        <div>
+          <BookOpen
+            size={42}
+            color="#289ed8"
+            style={{ margin: "0 auto 18px" }}
+          />
 
-  const course = courses.find((item) => item.slug === slug);
+          <h2
+            style={{
+              marginBottom: 10,
+              color: "#102b46",
+            }}
+          >
+            Loading programme...
+          </h2>
+
+          <p
+            style={{
+              color: "#687586",
+              fontSize: 14,
+              lineHeight: 1.8,
+            }}
+          >
+            Please wait while we load your programme details.
+          </p>
+        </div>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
+
+/* =====================================================
+   PROGRAMME DETAILS
+===================================================== */
+
+function ProgrammeDetailsContent() {
+  const params = useParams<{
+    slug: string | string[];
+  }>();
+
+  const rawSlug = params?.slug;
+
+  const slug = Array.isArray(rawSlug)
+    ? rawSlug[0]
+    : rawSlug;
+
+  const course = courses.find(
+    (item) => item.slug === slug,
+  );
 
   const curriculum: Curriculum | undefined = course
     ? curricula[course.slug] ??
-      createDefaultCurriculum(course.title, course.level)
+      createDefaultCurriculum(
+        course.title,
+        course.level,
+      )
     : undefined;
 
-  const [openModules, setOpenModules] = useState<number[]>([0]);
+  const [openModules, setOpenModules] = useState<number[]>([
+    0,
+  ]);
 
   const toggleModule = (index: number) => {
     setOpenModules((current) =>
@@ -140,16 +237,31 @@ const slug = Array.isArray(rawSlug)
 
         <main
           className="container"
-          style={{ padding: "100px 0" }}
+          style={{
+            padding: "100px 20px",
+            minHeight: "50vh",
+          }}
         >
-          <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              maxWidth: 550,
+              margin: "0 auto",
+              textAlign: "center",
+            }}
+          >
             <BookOpen
               size={44}
               color="#289ed8"
               style={{ margin: "0 auto 18px" }}
             />
 
-            <h1 style={{ fontSize: 32, marginBottom: 12 }}>
+            <h1
+              style={{
+                fontSize: 32,
+                marginBottom: 12,
+                color: "#102b46",
+              }}
+            >
               Programme not found
             </h1>
 
@@ -160,12 +272,24 @@ const slug = Array.isArray(rawSlug)
                 lineHeight: 1.8,
               }}
             >
-              This programme may not exist or its address may be incorrect.
-              Explore our available programmes to find another course.
+              This programme may not exist or its address
+              may be incorrect. Explore our available
+              programmes to find another course.
             </p>
 
-            <Link href="/programmes" className="primary-btn">
-              Browse Programmes <ArrowRight size={16} />
+            <Link
+              href="/programmes"
+              className="primary-btn"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                textDecoration: "none",
+              }}
+            >
+              Browse Programmes
+              <ArrowRight size={16} />
             </Link>
           </div>
         </main>
@@ -176,7 +300,8 @@ const slug = Array.isArray(rawSlug)
   }
 
   const totalLessons = curriculum.modules.reduce(
-    (total, module) => total + module.lessons.length,
+    (total, module) =>
+      total + module.lessons.length,
     0,
   );
 
@@ -185,13 +310,15 @@ const slug = Array.isArray(rawSlug)
       total +
       module.lessons.reduce(
         (minutes, lesson) =>
-          minutes + (Number.parseInt(lesson.duration, 10) || 0),
+          minutes +
+          (Number.parseInt(lesson.duration, 10) || 0),
         0,
       ),
     0,
   );
 
   const allModulesOpen =
+    curriculum.modules.length > 0 &&
     openModules.length === curriculum.modules.length;
 
   return (
@@ -199,7 +326,8 @@ const slug = Array.isArray(rawSlug)
       <Navbar />
 
       <main>
-        {/* COURSE HERO */}
+        {/* ================= PROGRAMME HERO ================= */}
+
         <section
           style={{
             padding: "55px 0 65px",
@@ -217,6 +345,7 @@ const slug = Array.isArray(rawSlug)
                 marginBottom: 28,
                 color: "#526174",
                 fontSize: 13,
+                textDecoration: "none",
               }}
             >
               <ArrowLeft size={16} />
@@ -233,6 +362,8 @@ const slug = Array.isArray(rawSlug)
                 alignItems: "center",
               }}
             >
+              {/* HERO CONTENT */}
+
               <motion.div
                 initial={{ opacity: 0, x: -25 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -276,6 +407,7 @@ const slug = Array.isArray(rawSlug)
                     lineHeight: 1.15,
                     letterSpacing: "-1.8px",
                     fontWeight: 800,
+                    color: "#102b46",
                   }}
                 >
                   {course.title}
@@ -291,6 +423,8 @@ const slug = Array.isArray(rawSlug)
                 >
                   {curriculum.subtitle}
                 </p>
+
+                {/* PROGRAMME STATISTICS */}
 
                 <div
                   style={{
@@ -342,6 +476,8 @@ const slug = Array.isArray(rawSlug)
                   </span>
                 </div>
 
+                {/* ENROLLMENT */}
+
                 <div
                   style={{
                     display: "flex",
@@ -353,8 +489,16 @@ const slug = Array.isArray(rawSlug)
                   <Link
                     href={`/register?course=${encodeURIComponent(course.slug)}`}
                     className="primary-btn"
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 8,
+                      textDecoration: "none",
+                    }}
                   >
-                    Enroll in Programme <ArrowRight size={16} />
+                    Enroll in Programme
+                    <ArrowRight size={16} />
                   </Link>
 
                   <span
@@ -372,18 +516,24 @@ const slug = Array.isArray(rawSlug)
                   style={{
                     color: "#7b8795",
                     fontSize: 11,
+                    lineHeight: 1.7,
                     marginTop: 14,
                   }}
                 >
-                  Course information and lesson outlines are currently
-                  demonstration content.
+                  Course information and lesson outlines
+                  are currently demonstration content.
                 </p>
               </motion.div>
+
+              {/* PROGRAMME IMAGE */}
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.94 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.65, delay: 0.1 }}
+                transition={{
+                  duration: 0.65,
+                  delay: 0.1,
+                }}
                 style={{
                   overflow: "hidden",
                   borderRadius: 18,
@@ -406,7 +556,8 @@ const slug = Array.isArray(rawSlug)
           </div>
         </section>
 
-        {/* LEARNING OUTCOMES AND CURRICULUM */}
+        {/* ============== LEARNING AND CURRICULUM ============== */}
+
         <section className="section">
           <div
             className="container programme-content-grid"
@@ -418,7 +569,11 @@ const slug = Array.isArray(rawSlug)
               alignItems: "start",
             }}
           >
+            {/* MAIN CONTENT */}
+
             <div>
+              {/* LEARNING OUTCOMES HEADING */}
+
               <div className="section-heading">
                 <div className="eyebrow">
                   <Target size={16} />
@@ -428,17 +583,20 @@ const slug = Array.isArray(rawSlug)
                 <h2>What You&apos;ll Learn</h2>
 
                 <p style={{ margin: 0 }}>
-                  Build your understanding step by step through structured
-                  modules and practical activities.
+                  Build your understanding step by step
+                  through structured modules and practical
+                  activities.
                 </p>
               </div>
 
               {/* LEARNING OUTCOMES */}
+
               <div
                 className="outcomes-grid"
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+                  gridTemplateColumns:
+                    "repeat(2, minmax(0, 1fr))",
                   gap: 15,
                   marginBottom: 45,
                 }}
@@ -455,20 +613,25 @@ const slug = Array.isArray(rawSlug)
                       padding: 16,
                       fontSize: 13,
                       lineHeight: 1.8,
+                      background: "#fff",
                     }}
                   >
                     <CheckCircle2
                       size={19}
                       color="#289ed8"
-                      style={{ flexShrink: 0, marginTop: 2 }}
+                      style={{
+                        flexShrink: 0,
+                        marginTop: 2,
+                      }}
                     />
 
-                    {outcome}
+                    <span>{outcome}</span>
                   </div>
                 ))}
               </div>
 
               {/* CURRICULUM HEADING */}
+
               <div className="section-heading">
                 <div className="eyebrow">
                   <BookOpen size={16} />
@@ -478,18 +641,19 @@ const slug = Array.isArray(rawSlug)
                 <h2>Programme Curriculum</h2>
 
                 <p style={{ margin: 0 }}>
-                  {curriculum.modules.length} modules · {totalLessons} lessons
-                  · Approximately {totalMinutes} minutes of outlined lesson
+                  {curriculum.modules.length} modules ·{" "}
+                  {totalLessons} lessons · Approximately{" "}
+                  {totalMinutes} minutes of outlined lesson
                   content
                 </p>
               </div>
 
               {/* EXPAND / COLLAPSE ALL */}
+
               <div
                 style={{
                   display: "flex",
                   justifyContent: "flex-end",
-                  gap: 8,
                   marginBottom: 15,
                 }}
               >
@@ -499,196 +663,246 @@ const slug = Array.isArray(rawSlug)
                     setOpenModules(
                       allModulesOpen
                         ? []
-                        : curriculum.modules.map((_, index) => index),
+                        : curriculum.modules.map(
+                            (_, index) => index,
+                          ),
                     )
                   }
                   className="outline-btn"
                   style={{
-                    background: "white",
+                    background: "#fff",
                     minHeight: 38,
+                    padding: "9px 15px",
                     cursor: "pointer",
                   }}
                 >
-                  {allModulesOpen ? "Collapse All" : "Expand All"}
+                  {allModulesOpen
+                    ? "Collapse All"
+                    : "Expand All"}
                 </button>
               </div>
 
               {/* MODULE ACCORDION */}
-              <div style={{ display: "grid", gap: 12 }}>
-                {curriculum.modules.map((module, index) => {
-                  const isOpen = openModules.includes(index);
 
-                  return (
-                    <div
-                      key={module.title}
-                      style={{
-                        overflow: "hidden",
-                        border: "1px solid #dcebf5",
-                        borderRadius: 12,
-                        background: "#fff",
-                      }}
-                    >
-                      <button
-                        type="button"
-                        onClick={() => toggleModule(index)}
-                        aria-expanded={isOpen}
+              <div
+                style={{
+                  display: "grid",
+                  gap: 12,
+                }}
+              >
+                {curriculum.modules.map(
+                  (module, index) => {
+                    const isOpen =
+                      openModules.includes(index);
+
+                    return (
+                      <div
+                        key={module.title}
                         style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          gap: 15,
-                          width: "100%",
-                          border: 0,
-                          padding: "19px 20px",
-                          textAlign: "left",
-                          background: isOpen ? "#eaf7ff" : "#fff",
-                          color: "#102b46",
-                          cursor: "pointer",
+                          overflow: "hidden",
+                          border: "1px solid #dcebf5",
+                          borderRadius: 12,
+                          background: "#fff",
                         }}
                       >
-                        <span>
-                          <strong
-                            style={{
-                              display: "block",
-                              fontSize: 14,
-                              lineHeight: 1.6,
-                            }}
-                          >
-                            {module.title}
-                          </strong>
+                        {/* MODULE HEADER */}
 
-                          <span
-                            style={{
-                              display: "block",
-                              color: "#687586",
-                              fontSize: 12,
-                              marginTop: 5,
-                              lineHeight: 1.6,
-                            }}
-                          >
-                            {module.description}
-                          </span>
-
-                          <span
-                            style={{
-                              display: "block",
-                              color: "#1677ad",
-                              fontSize: 11,
-                              marginTop: 7,
-                            }}
-                          >
-                            {module.lessons.length} lessons
-                          </span>
-                        </span>
-
-                        <ChevronDown
-                          size={19}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            toggleModule(index)
+                          }
+                          aria-expanded={isOpen}
                           style={{
-                            flexShrink: 0,
-                            transform: isOpen
-                              ? "rotate(180deg)"
-                              : "rotate(0deg)",
-                            transition: "transform 180ms ease",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: 15,
+                            width: "100%",
+                            border: 0,
+                            padding: "19px 20px",
+                            textAlign: "left",
+                            background: isOpen
+                              ? "#eaf7ff"
+                              : "#fff",
+                            color: "#102b46",
+                            cursor: "pointer",
                           }}
-                        />
-                      </button>
-
-                      <AnimatePresence initial={false}>
-                        {isOpen && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.22 }}
-                            style={{ overflow: "hidden" }}
-                          >
-                            <div
+                        >
+                          <span>
+                            <strong
                               style={{
-                                borderTop: "1px solid #dcebf5",
-                                padding: "5px 20px",
+                                display: "block",
+                                fontSize: 14,
+                                lineHeight: 1.6,
                               }}
                             >
-                              {module.lessons.map((lesson) => (
-                                <div
-                                  key={lesson.title}
-                                  style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "space-between",
-                                    gap: 12,
-                                    padding: "15px 0",
-                                    borderBottom: "1px solid #f0f2f5",
-                                  }}
-                                >
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      gap: 10,
-                                      minWidth: 0,
-                                    }}
-                                  >
-                                    <PlayCircle
-                                      size={18}
-                                      color="#289ed8"
-                                      style={{ flexShrink: 0 }}
-                                    />
+                              {module.title}
+                            </strong>
 
-                                    <span
+                            <span
+                              style={{
+                                display: "block",
+                                color: "#687586",
+                                fontSize: 12,
+                                marginTop: 5,
+                                lineHeight: 1.6,
+                              }}
+                            >
+                              {module.description}
+                            </span>
+
+                            <span
+                              style={{
+                                display: "block",
+                                color: "#1677ad",
+                                fontSize: 11,
+                                marginTop: 7,
+                              }}
+                            >
+                              {module.lessons.length} lessons
+                            </span>
+                          </span>
+
+                          <ChevronDown
+                            size={19}
+                            style={{
+                              flexShrink: 0,
+                              transform: isOpen
+                                ? "rotate(180deg)"
+                                : "rotate(0deg)",
+                              transition:
+                                "transform 180ms ease",
+                            }}
+                          />
+                        </button>
+
+                        {/* MODULE LESSONS */}
+
+                        <AnimatePresence initial={false}>
+                          {isOpen && (
+                            <motion.div
+                              initial={{
+                                height: 0,
+                                opacity: 0,
+                              }}
+                              animate={{
+                                height: "auto",
+                                opacity: 1,
+                              }}
+                              exit={{
+                                height: 0,
+                                opacity: 0,
+                              }}
+                              transition={{
+                                duration: 0.22,
+                              }}
+                              style={{
+                                overflow: "hidden",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  borderTop:
+                                    "1px solid #dcebf5",
+                                  padding: "5px 20px",
+                                }}
+                              >
+                                {module.lessons.map(
+                                  (lesson) => (
+                                    <div
+                                      key={lesson.title}
                                       style={{
-                                        fontSize: 13,
-                                        lineHeight: 1.6,
+                                        display: "flex",
+                                        alignItems:
+                                          "center",
+                                        justifyContent:
+                                          "space-between",
+                                        gap: 12,
+                                        padding: "15px 0",
+                                        borderBottom:
+                                          "1px solid #f0f2f5",
                                       }}
                                     >
-                                      {lesson.title}
-                                    </span>
-                                  </div>
-
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      alignItems: "center",
-                                      gap: 10,
-                                      flexShrink: 0,
-                                    }}
-                                  >
-                                    {lesson.preview && (
-                                      <span
+                                      <div
                                         style={{
-                                          borderRadius: 20,
-                                          padding: "5px 8px",
-                                          background: "#eaf7ff",
-                                          color: "#1677ad",
-                                          fontSize: 10,
-                                          fontWeight: 800,
+                                          display: "flex",
+                                          alignItems:
+                                            "center",
+                                          gap: 10,
+                                          minWidth: 0,
                                         }}
                                       >
-                                        Preview
-                                      </span>
-                                    )}
+                                        <PlayCircle
+                                          size={18}
+                                          color="#289ed8"
+                                          style={{
+                                            flexShrink: 0,
+                                          }}
+                                        />
 
-                                    <span
-                                      style={{
-                                        color: "#687586",
-                                        fontSize: 11,
-                                      }}
-                                    >
-                                      {lesson.duration}
-                                    </span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  );
-                })}
+                                        <span
+                                          style={{
+                                            fontSize: 13,
+                                            lineHeight: 1.6,
+                                          }}
+                                        >
+                                          {lesson.title}
+                                        </span>
+                                      </div>
+
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          alignItems:
+                                            "center",
+                                          gap: 10,
+                                          flexShrink: 0,
+                                        }}
+                                      >
+                                        {lesson.preview && (
+                                          <span
+                                            style={{
+                                              borderRadius: 20,
+                                              padding:
+                                                "5px 8px",
+                                              background:
+                                                "#eaf7ff",
+                                              color:
+                                                "#1677ad",
+                                              fontSize: 10,
+                                              fontWeight: 800,
+                                            }}
+                                          >
+                                            Preview
+                                          </span>
+                                        )}
+
+                                        <span
+                                          style={{
+                                            color: "#687586",
+                                            fontSize: 11,
+                                          }}
+                                        >
+                                          {lesson.duration}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  ),
+                                )}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  },
+                )}
               </div>
             </div>
 
-            {/* PROGRAMME SIDEBAR */}
+            {/* ============== PROGRAMME SIDEBAR ============== */}
+
             <aside
               className="programme-sidebar"
               style={{
@@ -701,6 +915,8 @@ const slug = Array.isArray(rawSlug)
                 boxShadow: "0 10px 35px #102b4608",
               }}
             >
+              {/* SIDEBAR TITLE */}
+
               <div
                 style={{
                   display: "flex",
@@ -711,28 +927,52 @@ const slug = Array.isArray(rawSlug)
               >
                 <div
                   className="category-icon"
-                  style={{ width: 48, height: 48 }}
+                  style={{
+                    width: 48,
+                    height: 48,
+                  }}
                 >
                   <GraduationCap size={25} />
                 </div>
 
                 <div>
-                  <strong style={{ display: "block", fontSize: 15 }}>
+                  <strong
+                    style={{
+                      display: "block",
+                      fontSize: 15,
+                    }}
+                  >
                     Programme Overview
                   </strong>
 
-                  <span style={{ color: "#687586", fontSize: 12 }}>
+                  <span
+                    style={{
+                      color: "#687586",
+                      fontSize: 12,
+                    }}
+                  >
                     Learn at your own pace
                   </span>
                 </div>
               </div>
 
+              {/* PROGRAMME STATISTICS */}
+
               {[
                 ["Difficulty", curriculum.level],
-                ["Estimated duration", curriculum.duration],
-                ["Total modules", String(curriculum.modules.length)],
+                [
+                  "Estimated duration",
+                  curriculum.duration,
+                ],
+                [
+                  "Total modules",
+                  String(curriculum.modules.length),
+                ],
                 ["Total lessons", String(totalLessons)],
-                ["Lesson outline", `${totalMinutes} minutes`],
+                [
+                  "Lesson outline",
+                  `${totalMinutes} minutes`,
+                ],
               ].map(([label, value]) => (
                 <div
                   key={label}
@@ -741,14 +981,30 @@ const slug = Array.isArray(rawSlug)
                     justifyContent: "space-between",
                     gap: 12,
                     padding: "14px 0",
-                    borderBottom: "1px solid #edf0f4",
+                    borderBottom:
+                      "1px solid #edf0f4",
                     fontSize: 12,
                   }}
                 >
-                  <span style={{ color: "#687586" }}>{label}</span>
-                  <strong style={{ textAlign: "right" }}>{value}</strong>
+                  <span
+                    style={{
+                      color: "#687586",
+                    }}
+                  >
+                    {label}
+                  </span>
+
+                  <strong
+                    style={{
+                      textAlign: "right",
+                    }}
+                  >
+                    {value}
+                  </strong>
                 </div>
               ))}
+
+              {/* ENROLL BUTTON */}
 
               <div style={{ marginTop: 24 }}>
                 <Link
@@ -756,12 +1012,20 @@ const slug = Array.isArray(rawSlug)
                   className="primary-btn"
                   style={{
                     width: "100%",
+                    boxSizing: "border-box",
+                    display: "inline-flex",
+                    alignItems: "center",
                     justifyContent: "center",
+                    gap: 8,
+                    textDecoration: "none",
                   }}
                 >
-                  Enroll Now <ArrowRight size={16} />
+                  Enroll Now
+                  <ArrowRight size={16} />
                 </Link>
               </div>
+
+              {/* REGISTRATION NOTICE */}
 
               <p
                 style={{
@@ -780,9 +1044,13 @@ const slug = Array.isArray(rawSlug)
                     color: "#289ed8",
                   }}
                 />
-                Registration and course enrollment will be connected to
-                the secure learning system in a later step.
+
+                Registration and course enrollment will be
+                connected to the secure learning system
+                in a later step.
               </p>
+
+              {/* CONTACT CARD */}
 
               <div
                 style={{
@@ -805,8 +1073,8 @@ const slug = Array.isArray(rawSlug)
                     margin: "10px 0 12px",
                   }}
                 >
-                  Not sure whether this programme is right for you?
-                  Contact us for guidance.
+                  Not sure whether this programme is right
+                  for you? Contact us for guidance.
                 </p>
 
                 <Link
@@ -818,9 +1086,11 @@ const slug = Array.isArray(rawSlug)
                     color: "#1677ad",
                     fontSize: 12,
                     fontWeight: 800,
+                    textDecoration: "none",
                   }}
                 >
-                  Contact Us <ArrowRight size={14} />
+                  Contact Us
+                  <ArrowRight size={14} />
                 </Link>
               </div>
             </aside>
