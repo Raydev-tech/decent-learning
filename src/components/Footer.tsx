@@ -74,7 +74,7 @@ export default function Footer() {
               className="dl-footer-logo"
               aria-label="Decent Learning home"
             >
-              <img src="/DL.jpeg" alt="Decent Learning logo" />
+              <img src="/dlogo.jpeg" alt="Decent Learning logo" />
 
               <span className="dl-logo-text">
                 <strong>DECENT LEARNING</strong>

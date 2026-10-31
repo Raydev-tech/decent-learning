@@ -5,7 +5,6 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  BookOpen,
   Eye,
   EyeOff,
   GraduationCap,
@@ -31,9 +30,7 @@ export default function RegisterPage() {
     agree: false,
   });
 
-  function handleChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value, type, checked } = event.target;
 
     setForm((previous) => ({
@@ -42,9 +39,7 @@ export default function RegisterPage() {
     }));
   }
 
-  function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>
-  ) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (form.fullName.trim().length < 2) {
@@ -123,7 +118,7 @@ export default function RegisterPage() {
     <main
       style={{
         minHeight: "100vh",
-        background: "#f5f9fa",
+        background: "#FEFEFE",
         color: "#102a35",
         display: "flex",
         flexDirection: "column",
@@ -148,11 +143,18 @@ export default function RegisterPage() {
             fontSize: "21px",
           }}
         >
-          <img
-            src="/DL.jpeg"
-            alt="Decent Learning logo"
-            className="w-20"
-          />
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A66EC] text-white">
+            <img src="/dlogo.jpeg" alt="" />
+          </div>
+
+          <div>
+            <h1 className="text-xl font-extrabold tracking-tight text-[#185EC1]">
+              Decent Learning
+            </h1>
+            <p className="text-xs font-medium text-slate-500">
+              Access • Learn • Own
+            </p>
+          </div>
         </Link>
       </header>
 
@@ -166,7 +168,8 @@ export default function RegisterPage() {
       >
         <div
           style={{
-            background: "linear-gradient(145deg, #082d3a, #087f8c)",
+            background:
+              "linear-gradient(145deg, #0A66EC, #185EC1, #227BEA)",
             color: "#fff",
             padding: "clamp(32px, 6vw, 76px)",
             display: "flex",
@@ -210,7 +213,7 @@ export default function RegisterPage() {
               style={{
                 maxWidth: "450px",
                 lineHeight: 1.8,
-                color: "#d9f0f1",
+                color: "#EAF2FF",
                 fontSize: "16px",
               }}
             >
@@ -241,7 +244,7 @@ export default function RegisterPage() {
                     fontSize: "14px",
                   }}
                 >
-                  <CheckCircle2 size={19} color="#8de2d4" />
+                  <CheckCircle2 size={19} color="#91B8F7" />
                   {item}
                 </div>
               ))}
@@ -268,7 +271,7 @@ export default function RegisterPage() {
               border: "1px solid #e5edef",
               borderRadius: "22px",
               padding: "clamp(22px, 4vw, 38px)",
-              boxShadow: "0 18px 55px rgba(16,42,53,0.06)",
+              boxShadow: "0 18px 55px rgba(10,102,236,0.08)",
             }}
           >
             {success ? (
@@ -278,8 +281,8 @@ export default function RegisterPage() {
                     width: "65px",
                     height: "65px",
                     borderRadius: "50%",
-                    background: "#e2f7f1",
-                    color: "#087f8c",
+                    background: "#EAF2FF",
+                    color: "#0A66EC",
                     display: "grid",
                     placeItems: "center",
                     margin: "0 auto 20px",
@@ -307,7 +310,7 @@ export default function RegisterPage() {
                     borderRadius: "12px",
                     padding: "15px",
                     marginTop: "22px",
-                    background: "#087f8c",
+                    background: "#0A66EC",
                     color: "#fff",
                     fontWeight: 700,
                     textDecoration: "none",
@@ -331,7 +334,7 @@ export default function RegisterPage() {
                   style={{
                     background: "transparent",
                     border: "none",
-                    color: "#087f8c",
+                    color: "#185EC1",
                     cursor: "pointer",
                     marginTop: "15px",
                   }}
@@ -348,8 +351,8 @@ export default function RegisterPage() {
                       height: "46px",
                       display: "grid",
                       placeItems: "center",
-                      background: "#e5f6f5",
-                      color: "#087f8c",
+                      background: "#EAF2FF",
+                      color: "#0A66EC",
                       borderRadius: "13px",
                       marginBottom: "20px",
                     }}
@@ -567,17 +570,17 @@ export default function RegisterPage() {
                       onChange={handleChange}
                       style={{
                         marginTop: "4px",
-                        accentColor: "#087f8c",
+                        accentColor: "#0A66EC",
                       }}
                     />
 
                     <span>
                       I agree to the{" "}
-                      <Link href="/terms" style={{ color: "#087f8c" }}>
+                      <Link href="/terms" style={{ color: "#185EC1" }}>
                         Terms of Service
                       </Link>{" "}
                       and{" "}
-                      <Link href="/privacy" style={{ color: "#087f8c" }}>
+                      <Link href="/privacy" style={{ color: "#185EC1" }}>
                         Privacy Policy
                       </Link>
                       .
@@ -596,7 +599,7 @@ export default function RegisterPage() {
                       padding: "15px",
                       border: "none",
                       borderRadius: "12px",
-                      background: loading ? "#75aeb3" : "#087f8c",
+                      background: loading ? "#5B99F6" : "#0A66EC",
                       color: "#fff",
                       fontWeight: 700,
                       fontSize: "15px",
@@ -619,7 +622,7 @@ export default function RegisterPage() {
                   Already have an account?{" "}
                   <Link
                     href="/login"
-                    style={{ color: "#087f8c", fontWeight: 700 }}
+                    style={{ color: "#0A66EC", fontWeight: 700 }}
                   >
                     Sign in
                   </Link>
@@ -630,7 +633,7 @@ export default function RegisterPage() {
         </div>
       </section>
 
-      <footer
+      {/* <footer
         style={{
           textAlign: "center",
           padding: "20px",
@@ -640,8 +643,8 @@ export default function RegisterPage() {
           borderTop: "1px solid #e8eff1",
         }}
       >
-        {/* © {new Date().getFullYear()} Decent Learning. Access • Learn • Own. */}
-      </footer>
+        © {new Date().getFullYear()} Decent Learning. Access • Learn • Own.
+      </footer> */}
     </main>
   );
 }

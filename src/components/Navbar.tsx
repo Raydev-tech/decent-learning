@@ -50,7 +50,7 @@ function NavbarFallback() {
         >
           <span className="dl-brand-logo">
             <img
-              src="/DL.jpeg"
+              src="/dlogo.jpeg"
               alt="Decent Learning logo"
               className="dl-logo-image"
             />
@@ -107,7 +107,7 @@ function NavbarContent() {
         >
           <span className="dl-brand-logo">
             <img
-              src="/DL.jpeg"
+              src="/dlogo.jpeg"
               alt="Decent Learning logo"
               className="dl-logo-image"
             />

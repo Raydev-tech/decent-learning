@@ -5,7 +5,6 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  BookOpen,
   Eye,
   EyeOff,
   Mail,
@@ -75,7 +74,7 @@ export default function LoginPage() {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        background: "#f5f9fa",
+        background: "#FEFEFE",
         color: "#102a35",
       }}
     >
@@ -98,11 +97,18 @@ export default function LoginPage() {
             fontWeight: 800,
           }}
         >
-          <img
-            src="/DL.jpeg"
-            alt="Decent Learning logo"
-            className="w-20"
-            />
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A66EC] text-white">
+            <img src="/dlogo.jpeg" alt="" />
+          </div>
+
+          <div>
+            <h1 className="text-xl font-extrabold tracking-tight text-[#185EC1]">
+              Decent Learning
+            </h1>
+            <p className="text-xs font-medium text-slate-500">
+              Access • Learn • Own
+            </p>
+          </div>
         </Link>
       </header>
 
@@ -116,7 +122,8 @@ export default function LoginPage() {
       >
         <div
           style={{
-            background: "linear-gradient(145deg, #082d3a, #087f8c)",
+            background:
+              "linear-gradient(145deg, #0A66EC, #185EC1, #227BEA)",
             color: "#fff",
             padding: "clamp(32px, 6vw, 76px)",
             display: "flex",
@@ -160,7 +167,7 @@ export default function LoginPage() {
               style={{
                 maxWidth: "440px",
                 lineHeight: 1.8,
-                color: "#d9f0f1",
+                color: "#EAF2FF",
                 fontSize: "16px",
               }}
             >
@@ -180,13 +187,14 @@ export default function LoginPage() {
                 maxWidth: "390px",
               }}
             >
-              <ShieldCheck size={32} color="#8de2d4" />
+              <ShieldCheck size={32} color="#91B8F7" />
 
               <div>
                 <strong style={{ display: "block", marginBottom: "5px" }}>
                   Your learning journey
                 </strong>
-                <span style={{ fontSize: "13px", color: "#d9f0f1" }}>
+
+                <span style={{ fontSize: "13px", color: "#EAF2FF" }}>
                   One step at a time, one skill at a time.
                 </span>
               </div>
@@ -213,7 +221,7 @@ export default function LoginPage() {
               background: "#fff",
               border: "1px solid #e5edef",
               borderRadius: "22px",
-              boxShadow: "0 18px 55px rgba(16,42,53,0.06)",
+              boxShadow: "0 18px 55px rgba(10,102,236,0.08)",
             }}
           >
             <div style={{ marginBottom: "30px" }}>
@@ -223,8 +231,8 @@ export default function LoginPage() {
                   height: "46px",
                   display: "grid",
                   placeItems: "center",
-                  background: "#e5f6f5",
-                  color: "#087f8c",
+                  background: "#EAF2FF",
+                  color: "#0A66EC",
                   borderRadius: "13px",
                   marginBottom: "20px",
                 }}
@@ -327,7 +335,7 @@ export default function LoginPage() {
                 <Link
                   href="/forgot-password"
                   style={{
-                    color: "#087f8c",
+                    color: "#0A66EC",
                     fontSize: "13px",
                     fontWeight: 600,
                     textDecoration: "none",
@@ -349,7 +357,7 @@ export default function LoginPage() {
                   padding: "15px",
                   border: "none",
                   borderRadius: "12px",
-                  background: loading ? "#75aeb3" : "#087f8c",
+                  background: loading ? "#5B99F6" : "#0A66EC",
                   color: "#fff",
                   fontWeight: 700,
                   fontSize: "15px",
@@ -399,7 +407,7 @@ export default function LoginPage() {
               <Link
                 href="/register"
                 style={{
-                  color: "#087f8c",
+                  color: "#0A66EC",
                   fontWeight: 700,
                   textDecoration: "none",
                 }}
@@ -424,7 +432,7 @@ export default function LoginPage() {
         </div>
       </section>
 
-      <footer
+      {/* <footer
         style={{
           textAlign: "center",
           padding: "20px",
@@ -434,8 +442,8 @@ export default function LoginPage() {
           borderTop: "1px solid #e8eff1",
         }}
       >
-        {/* © {new Date().getFullYear()} Decent Learning. Access • Learn • Own. */}
-      </footer>
+        © {new Date().getFullYear()} Decent Learning. Access • Learn • Own.
+      </footer> */}
     </main>
   );
 }

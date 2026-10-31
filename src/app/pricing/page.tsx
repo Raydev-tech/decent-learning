@@ -18,7 +18,6 @@ import {
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 
-
 const plans = [
   {
     name: "Free",
@@ -124,9 +123,7 @@ export default function PricingPage() {
     if (price === 0) return 0;
 
     // Illustrative annual discount; update before launch.
-    return billing === "yearly"
-      ? Math.round(price * 10)
-      : price;
+    return billing === "yearly" ? Math.round(price * 10) : price;
   }
 
   return (
@@ -140,7 +137,7 @@ export default function PricingPage() {
             padding: "75px 0 65px",
             textAlign: "center",
             background:
-              "radial-gradient(ellipse at 50% 0%, #dff8f1, transparent 48%), #f5f8ff",
+              "radial-gradient(ellipse at 50% 0%, #DCEBFF, transparent 48%), #F4F8FF",
           }}
         >
           <motion.div
@@ -149,10 +146,7 @@ export default function PricingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
           >
-            <div
-              className="eyebrow"
-              style={{ justifyContent: "center" }}
-            >
+            <div className="eyebrow" style={{ justifyContent: "center" }}>
               <Sparkles size={17} />
               Simple learning plans
             </div>
@@ -169,7 +163,7 @@ export default function PricingPage() {
             >
               Invest in Your Skills.
               <br />
-              <span style={{ color: "#20a991" }}>
+              <span style={{ color: "#0A66EC" }}>
                 Build Your Future.
               </span>
             </h1>
@@ -178,7 +172,7 @@ export default function PricingPage() {
               style={{
                 maxWidth: 620,
                 margin: "0 auto",
-                color: "#687586",
+                color: "#526174",
                 fontSize: 15,
                 lineHeight: 1.9,
               }}
@@ -200,10 +194,10 @@ export default function PricingPage() {
                 fontSize: 12,
               }}
             >
-              <Check size={16} color="#20a991" />
+              <Check size={16} color="#0A66EC" />
               Start with free learning resources
-              <span style={{ color: "#c4cbd4" }}>•</span>
-              <Check size={16} color="#20a991" />
+              <span style={{ color: "#C4CBD4" }}>•</span>
+              <Check size={16} color="#0A66EC" />
               Upgrade when you are ready
             </div>
           </motion.div>
@@ -226,7 +220,7 @@ export default function PricingPage() {
                 style={{
                   fontSize: 13,
                   fontWeight: billing === "monthly" ? 800 : 500,
-                  color: billing === "monthly" ? "#102b46" : "#687586",
+                  color: billing === "monthly" ? "#102B46" : "#526174",
                 }}
               >
                 Monthly
@@ -247,7 +241,8 @@ export default function PricingPage() {
                   padding: 4,
                   border: 0,
                   borderRadius: 30,
-                  background: billing === "yearly" ? "#20a991" : "#cbd5e1",
+                  background:
+                    billing === "yearly" ? "#0A66EC" : "#CBD5E1",
                   cursor: "pointer",
                 }}
               >
@@ -259,7 +254,7 @@ export default function PricingPage() {
                     width: 21,
                     height: 21,
                     borderRadius: "50%",
-                    background: "#fff",
+                    background: "#FEFEFE",
                     boxShadow: "0 2px 5px #00000015",
                   }}
                 />
@@ -269,7 +264,7 @@ export default function PricingPage() {
                 style={{
                   fontSize: 13,
                   fontWeight: billing === "yearly" ? 800 : 500,
-                  color: billing === "yearly" ? "#102b46" : "#687586",
+                  color: billing === "yearly" ? "#102B46" : "#526174",
                 }}
               >
                 Yearly
@@ -279,8 +274,8 @@ export default function PricingPage() {
                 style={{
                   borderRadius: 20,
                   padding: "6px 10px",
-                  background: "#e3f8f1",
-                  color: "#168c78",
+                  background: "#DCEBFF",
+                  color: "#185EC1",
                   fontSize: 10,
                   fontWeight: 800,
                 }}
@@ -315,13 +310,13 @@ export default function PricingPage() {
                       flexDirection: "column",
                       padding: "30px 25px",
                       border: plan.featured
-                        ? "2px solid #20a991"
-                        : "1px solid #e8edf3",
+                        ? "2px solid #0A66EC"
+                        : "1px solid #DCE8FA",
                       borderRadius: 15,
-                      background: "#fff",
+                      background: "#FEFEFE",
                       boxShadow: plan.featured
-                        ? "0 16px 45px #20a99117"
-                        : "0 10px 35px #102b4607",
+                        ? "0 16px 45px #0A66EC17"
+                        : "0 10px 35px #102B4607",
                     }}
                   >
                     {plan.featured && (
@@ -334,8 +329,8 @@ export default function PricingPage() {
                           whiteSpace: "nowrap",
                           borderRadius: 30,
                           padding: "7px 16px",
-                          background: "#20a991",
-                          color: "#fff",
+                          background: "#0A66EC",
+                          color: "#FEFEFE",
                           fontSize: 10,
                           fontWeight: 800,
                           letterSpacing: "0.5px",
@@ -359,12 +354,12 @@ export default function PricingPage() {
                           width: 45,
                           height: 45,
                           flexShrink: 0,
-                          background: plan.featured ? "#e3f8f1" : "#f3f6fb",
+                          background: plan.featured ? "#DCEBFF" : "#F4F8FF",
                         }}
                       >
                         <Icon
                           size={23}
-                          color={plan.featured ? "#168c78" : "#102b46"}
+                          color={plan.featured ? "#185EC1" : "#0A66EC"}
                         />
                       </div>
 
@@ -382,7 +377,7 @@ export default function PricingPage() {
                         <p
                           style={{
                             fontSize: 12,
-                            color: "#687586",
+                            color: "#526174",
                             margin: "4px 0 0",
                           }}
                         >
@@ -409,15 +404,20 @@ export default function PricingPage() {
                         {naira(price)}
                       </span>
 
-                      <span style={{ fontSize: 12, color: "#687586" }}>
-                        / {plan.price === 0 ? "forever" : billing === "yearly" ? "year" : "month"}
+                      <span style={{ fontSize: 12, color: "#526174" }}>
+                        /{" "}
+                        {plan.price === 0
+                          ? "forever"
+                          : billing === "yearly"
+                            ? "year"
+                            : "month"}
                       </span>
                     </div>
 
                     {plan.price > 0 && billing === "yearly" && (
                       <p
                         style={{
-                          color: "#168c78",
+                          color: "#185EC1",
                           fontSize: 11,
                           margin: "0 0 12px",
                         }}
@@ -429,7 +429,7 @@ export default function PricingPage() {
                     <div
                       style={{
                         height: 1,
-                        background: "#edf0f4",
+                        background: "#DCE8FA",
                         margin: "18px 0",
                       }}
                     />
@@ -461,7 +461,7 @@ export default function PricingPage() {
                             display: "flex",
                             alignItems: "flex-start",
                             gap: 10,
-                            color: feature.included ? "#526174" : "#a4acb7",
+                            color: feature.included ? "#526174" : "#A4ACB7",
                             fontSize: 12,
                             lineHeight: 1.7,
                           }}
@@ -469,13 +469,13 @@ export default function PricingPage() {
                           {feature.included ? (
                             <Check
                               size={17}
-                              color="#20a991"
+                              color="#0A66EC"
                               style={{ flexShrink: 0, marginTop: 1 }}
                             />
                           ) : (
                             <X
                               size={17}
-                              color="#b9c0ca"
+                              color="#B9C0CA"
                               style={{ flexShrink: 0, marginTop: 1 }}
                             />
                           )}
@@ -487,13 +487,12 @@ export default function PricingPage() {
 
                     <Link
                       href={`/register?plan=${plan.name.toLowerCase()}&billing=${billing}`}
-                      className={
-                        plan.featured ? "primary-btn" : "outline-btn"
-                      }
+                      className={plan.featured ? "primary-btn" : "outline-btn"}
                       style={{
                         width: "100%",
-                        background: plan.featured ? "#20a991" : "#fff",
-                        color: plan.featured ? "#fff" : "#102b46",
+                        background: plan.featured ? "#0A66EC" : "#FEFEFE",
+                        color: plan.featured ? "#FEFEFE" : "#185EC1",
+                        borderColor: plan.featured ? "#0A66EC" : "#DCE8FA",
                       }}
                     >
                       {plan.button}
@@ -509,7 +508,7 @@ export default function PricingPage() {
                 textAlign: "center",
                 fontSize: 11,
                 lineHeight: 1.8,
-                color: "#7b8795",
+                color: "#526174",
                 marginTop: 24,
               }}
             >
@@ -521,13 +520,10 @@ export default function PricingPage() {
         </section>
 
         {/* FEATURE COMPARISON */}
-        <section style={{ padding: "65px 0", background: "#f7f9fc" }}>
+        <section style={{ padding: "65px 0", background: "#F4F8FF" }}>
           <div className="container">
             <div className="section-heading" style={{ textAlign: "center" }}>
-              <div
-                className="eyebrow"
-                style={{ justifyContent: "center" }}
-              >
+              <div className="eyebrow" style={{ justifyContent: "center" }}>
                 <Star size={16} />
                 Compare your options
               </div>
@@ -542,9 +538,9 @@ export default function PricingPage() {
             <div
               style={{
                 overflowX: "auto",
-                border: "1px solid #e8edf3",
+                border: "1px solid #DCE8FA",
                 borderRadius: 12,
-                background: "#fff",
+                background: "#FEFEFE",
               }}
             >
               <table
@@ -556,7 +552,7 @@ export default function PricingPage() {
                 }}
               >
                 <thead>
-                  <tr style={{ background: "#f8fafc" }}>
+                  <tr style={{ background: "#F4F8FF" }}>
                     <th
                       style={{
                         padding: 18,
@@ -573,7 +569,7 @@ export default function PricingPage() {
                         style={{
                           padding: 18,
                           fontSize: 13,
-                          color: plan.featured ? "#168c78" : "#102b46",
+                          color: plan.featured ? "#185EC1" : "#102B46",
                         }}
                       >
                         {plan.name}
@@ -597,7 +593,7 @@ export default function PricingPage() {
                         style={{
                           padding: 17,
                           textAlign: "left",
-                          borderTop: "1px solid #edf0f4",
+                          borderTop: "1px solid #DCE8FA",
                           fontSize: 12,
                           color: "#526174",
                         }}
@@ -610,19 +606,19 @@ export default function PricingPage() {
                           key={index}
                           style={{
                             padding: 17,
-                            borderTop: "1px solid #edf0f4",
+                            borderTop: "1px solid #DCE8FA",
                           }}
                         >
                           {included ? (
                             <Check
                               size={19}
-                              color="#20a991"
+                              color="#0A66EC"
                               style={{ margin: "0 auto" }}
                             />
                           ) : (
                             <X
                               size={18}
-                              color="#c4cbd4"
+                              color="#C4CBD4"
                               style={{ margin: "0 auto" }}
                             />
                           )}
@@ -637,7 +633,7 @@ export default function PricingPage() {
             <p
               style={{
                 fontSize: 11,
-                color: "#7b8795",
+                color: "#526174",
                 lineHeight: 1.8,
                 textAlign: "center",
                 marginTop: 15,
@@ -653,10 +649,7 @@ export default function PricingPage() {
         <section className="section">
           <div className="container" style={{ maxWidth: 850 }}>
             <div className="section-heading" style={{ textAlign: "center" }}>
-              <div
-                className="eyebrow"
-                style={{ justifyContent: "center" }}
-              >
+              <div className="eyebrow" style={{ justifyContent: "center" }}>
                 <HelpCircle size={16} />
                 Frequently asked questions
               </div>
@@ -677,18 +670,16 @@ export default function PricingPage() {
                   <div
                     key={faq.question}
                     style={{
-                      border: "1px solid #e8edf3",
+                      border: "1px solid #DCE8FA",
                       borderRadius: 10,
-                      background: "#fff",
+                      background: "#FEFEFE",
                       overflow: "hidden",
                     }}
                   >
                     <button
                       type="button"
                       aria-expanded={isOpen}
-                      onClick={() =>
-                        setOpenFaq(isOpen ? null : index)
-                      }
+                      onClick={() => setOpenFaq(isOpen ? null : index)}
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
@@ -699,9 +690,10 @@ export default function PricingPage() {
                         textAlign: "left",
                         border: 0,
                         background: "transparent",
-                        color: "#102b46",
+                        color: "#102B46",
                         fontWeight: 700,
                         fontSize: 14,
+                        cursor: "pointer",
                       }}
                     >
                       {faq.question}
@@ -711,7 +703,7 @@ export default function PricingPage() {
                         transition={{ duration: 0.2 }}
                         style={{ display: "flex", flexShrink: 0 }}
                       >
-                        <ChevronDown size={19} />
+                        <ChevronDown size={19} color="#0A66EC" />
                       </motion.span>
                     </button>
 
@@ -728,7 +720,7 @@ export default function PricingPage() {
                             style={{
                               padding: "0 20px 20px",
                               margin: 0,
-                              color: "#687586",
+                              color: "#526174",
                               fontSize: 13,
                               lineHeight: 1.9,
                             }}
@@ -755,7 +747,7 @@ export default function PricingPage() {
               viewport={{ once: true }}
             >
               <div>
-                <div className="eyebrow" style={{ color: "#77e2cb" }}>
+                <div className="eyebrow" style={{ color: "#91B8F7" }}>
                   <Sparkles size={16} />
                   Access · Learn · Own
                 </div>

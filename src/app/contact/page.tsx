@@ -12,7 +12,6 @@ import {
   Mail,
   MapPin,
   MessageCircle,
-  Phone,
   Send,
   ShieldCheck,
   Sparkles,
@@ -91,9 +90,7 @@ export default function ContactPage() {
       nextErrors.name = "Please enter your name.";
     }
 
-    if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())
-    ) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
       nextErrors.email = "Enter a valid email address.";
     }
 
@@ -102,7 +99,8 @@ export default function ContactPage() {
     }
 
     if (values.message.trim().length < 10) {
-      nextErrors.message = "Your message must contain at least 10 characters.";
+      nextErrors.message =
+        "Your message must contain at least 10 characters.";
     }
 
     setErrors(nextErrors);
@@ -122,10 +120,7 @@ export default function ContactPage() {
     setErrors({});
   }
 
-  function updateField(
-    field: keyof FormValues,
-    value: string,
-  ) {
+  function updateField(field: keyof FormValues, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
 
     setErrors((current) => ({
@@ -139,12 +134,12 @@ export default function ContactPage() {
   const inputStyle = {
     width: "100%",
     boxSizing: "border-box" as const,
-    border: "1px solid #dfe6ee",
+    border: "1px solid #DCE8FA",
     borderRadius: 9,
     padding: "13px 14px",
     outline: "none",
-    background: "#fff",
-    color: "#102b46",
+    background: "#FEFEFE",
+    color: "#102B46",
     fontSize: 13,
   };
 
@@ -158,7 +153,7 @@ export default function ContactPage() {
           style={{
             padding: "75px 0 65px",
             background:
-              "radial-gradient(ellipse at 80% 10%, #dff8f1, transparent 35%), #f5f8ff",
+              "radial-gradient(ellipse at 80% 10%, #DCEBFF, transparent 35%), #F4F8FF",
           }}
         >
           <motion.div
@@ -184,7 +179,7 @@ export default function ContactPage() {
             >
               Have a Question?
               <br />
-              <span style={{ color: "#20a991" }}>
+              <span style={{ color: "#0A66EC" }}>
                 We&apos;re Here to Help.
               </span>
             </h1>
@@ -192,7 +187,7 @@ export default function ContactPage() {
             <p
               style={{
                 maxWidth: 620,
-                color: "#687586",
+                color: "#526174",
                 fontSize: 15,
                 lineHeight: 1.9,
                 margin: 0,
@@ -210,7 +205,8 @@ export default function ContactPage() {
             className="container contact-layout"
             style={{
               display: "grid",
-              gridTemplateColumns: "minmax(0, 1.15fr) minmax(280px, 0.85fr)",
+              gridTemplateColumns:
+                "minmax(0, 1.15fr) minmax(280px, 0.85fr)",
               gap: 35,
               alignItems: "start",
             }}
@@ -221,10 +217,10 @@ export default function ContactPage() {
               viewport={{ once: true }}
               style={{
                 padding: 28,
-                border: "1px solid #e8edf3",
+                border: "1px solid #DCE8FA",
                 borderRadius: 15,
-                background: "#fff",
-                boxShadow: "0 12px 35px #102b4608",
+                background: "#FEFEFE",
+                boxShadow: "0 12px 35px #102B4608",
               }}
             >
               <div className="eyebrow">
@@ -244,7 +240,7 @@ export default function ContactPage() {
 
               <p
                 style={{
-                  color: "#687586",
+                  color: "#526174",
                   fontSize: 13,
                   lineHeight: 1.8,
                   marginBottom: 25,
@@ -291,7 +287,7 @@ export default function ContactPage() {
                       }
                       style={{
                         ...inputStyle,
-                        borderColor: errors.name ? "#dc2626" : "#dfe6ee",
+                        borderColor: errors.name ? "#DC2626" : "#DCE8FA",
                       }}
                     />
 
@@ -299,7 +295,7 @@ export default function ContactPage() {
                       <p
                         id="contact-name-error"
                         style={{
-                          color: "#dc2626",
+                          color: "#DC2626",
                           fontSize: 11,
                           marginTop: 6,
                         }}
@@ -338,7 +334,7 @@ export default function ContactPage() {
                       }
                       style={{
                         ...inputStyle,
-                        borderColor: errors.email ? "#dc2626" : "#dfe6ee",
+                        borderColor: errors.email ? "#DC2626" : "#DCE8FA",
                       }}
                     />
 
@@ -346,7 +342,7 @@ export default function ContactPage() {
                       <p
                         id="contact-email-error"
                         style={{
-                          color: "#dc2626",
+                          color: "#DC2626",
                           fontSize: 11,
                           marginTop: 6,
                         }}
@@ -415,15 +411,17 @@ export default function ContactPage() {
                       placeholder="Tell us how we can help..."
                       aria-invalid={Boolean(errors.message)}
                       aria-describedby={
-                        errors.message ? "contact-message-error" : undefined
+                        errors.message
+                          ? "contact-message-error"
+                          : undefined
                       }
                       style={{
                         ...inputStyle,
                         resize: "vertical",
                         lineHeight: 1.8,
                         borderColor: errors.message
-                          ? "#dc2626"
-                          : "#dfe6ee",
+                          ? "#DC2626"
+                          : "#DCE8FA",
                       }}
                     />
 
@@ -433,14 +431,14 @@ export default function ContactPage() {
                         justifyContent: "space-between",
                         gap: 12,
                         fontSize: 11,
-                        color: "#7b8795",
+                        color: "#526174",
                         marginTop: 6,
                       }}
                     >
                       {errors.message ? (
                         <span
                           id="contact-message-error"
-                          style={{ color: "#dc2626" }}
+                          style={{ color: "#DC2626" }}
                         >
                           {errors.message}
                         </span>
@@ -467,8 +465,8 @@ export default function ContactPage() {
                         padding: 15,
                         marginTop: 20,
                         borderRadius: 9,
-                        background: "#e3f8f1",
-                        color: "#116b59",
+                        background: "#DCEBFF",
+                        color: "#185EC1",
                         fontSize: 12,
                         lineHeight: 1.8,
                       }}
@@ -502,7 +500,7 @@ export default function ContactPage() {
 
                 <p
                   style={{
-                    color: "#7b8795",
+                    color: "#526174",
                     fontSize: 11,
                     lineHeight: 1.8,
                     marginTop: 13,
@@ -520,11 +518,11 @@ export default function ContactPage() {
                 style={{
                   padding: 25,
                   borderRadius: 14,
-                  background: "#102b46",
-                  color: "#fff",
+                  background: "#185EC1",
+                  color: "#FEFEFE",
                 }}
               >
-                <div className="eyebrow" style={{ color: "#77e2cb" }}>
+                <div className="eyebrow" style={{ color: "#91B8F7" }}>
                   <Sparkles size={16} />
                   We&apos;d Love to Hear from You
                 </div>
@@ -541,7 +539,7 @@ export default function ContactPage() {
 
                 <p
                   style={{
-                    color: "#cfdae6",
+                    color: "#E5EEFF",
                     fontSize: 13,
                     lineHeight: 1.9,
                     margin: 0,
@@ -566,8 +564,8 @@ export default function ContactPage() {
                       justifyContent: "space-between",
                       gap: 10,
                       padding: "14px 0",
-                      borderTop: "1px solid #ffffff20",
-                      color: "#fff",
+                      borderTop: "1px solid #FFFFFF30",
+                      color: "#FEFEFE",
                       fontSize: 12,
                       fontWeight: 700,
                     }}
@@ -583,8 +581,8 @@ export default function ContactPage() {
                       justifyContent: "space-between",
                       gap: 10,
                       padding: "14px 0",
-                      borderTop: "1px solid #ffffff20",
-                      color: "#fff",
+                      borderTop: "1px solid #FFFFFF30",
+                      color: "#FEFEFE",
                       fontSize: 12,
                       fontWeight: 700,
                     }}
@@ -609,12 +607,18 @@ export default function ContactPage() {
                       alignItems: "flex-start",
                       gap: 15,
                       padding: 20,
-                      border: "1px solid #e8edf3",
+                      border: "1px solid #DCE8FA",
                       borderRadius: 12,
-                      background: "#fff",
+                      background: "#FEFEFE",
                     }}
                   >
-                    <div className="category-icon">
+                    <div
+                      className="category-icon"
+                      style={{
+                        background: "#DCEBFF",
+                        color: "#0A66EC",
+                      }}
+                    >
                       <Icon size={22} />
                     </div>
 
@@ -625,7 +629,7 @@ export default function ContactPage() {
 
                       <p
                         style={{
-                          color: "#687586",
+                          color: "#526174",
                           fontSize: 12,
                           lineHeight: 1.8,
                           margin: "0 0 7px",
@@ -636,7 +640,7 @@ export default function ContactPage() {
 
                       <span
                         style={{
-                          color: "#168c78",
+                          color: "#185EC1",
                           fontSize: 12,
                           fontWeight: 700,
                         }}
@@ -654,13 +658,13 @@ export default function ContactPage() {
                   gap: 12,
                   padding: 18,
                   borderRadius: 12,
-                  background: "#f5f8ff",
+                  background: "#F4F8FF",
                   color: "#526174",
                 }}
               >
                 <MapPin
                   size={20}
-                  color="#20a991"
+                  color="#0A66EC"
                   style={{ flexShrink: 0 }}
                 />
 
@@ -671,7 +675,7 @@ export default function ContactPage() {
                     margin: 0,
                   }}
                 >
-                  <strong style={{ color: "#102b46" }}>
+                  <strong style={{ color: "#102B46" }}>
                     Location &amp; Availability
                   </strong>
                   <br />
@@ -685,7 +689,7 @@ export default function ContactPage() {
                   display: "flex",
                   alignItems: "flex-start",
                   gap: 10,
-                  color: "#687586",
+                  color: "#526174",
                   fontSize: 11,
                   lineHeight: 1.8,
                   padding: "0 5px",
@@ -693,7 +697,7 @@ export default function ContactPage() {
               >
                 <ShieldCheck
                   size={17}
-                  color="#20a991"
+                  color="#0A66EC"
                   style={{ flexShrink: 0 }}
                 />
                 <span>
@@ -706,13 +710,10 @@ export default function ContactPage() {
         </section>
 
         {/* FAQ */}
-        <section style={{ padding: "65px 0", background: "#f6f8fc" }}>
+        <section style={{ padding: "65px 0", background: "#F4F8FF" }}>
           <div className="container" style={{ maxWidth: 850 }}>
             <div className="section-heading" style={{ textAlign: "center" }}>
-              <div
-                className="eyebrow"
-                style={{ justifyContent: "center" }}
-              >
+              <div className="eyebrow" style={{ justifyContent: "center" }}>
                 <MessageCircle size={16} />
                 Help Centre
               </div>
@@ -737,7 +738,7 @@ export default function ContactPage() {
           <div className="container">
             <div className="cta-card">
               <div>
-                <div className="eyebrow" style={{ color: "#77e2cb" }}>
+                <div className="eyebrow" style={{ color: "#91B8F7" }}>
                   <Sparkles size={16} />
                   Access · Learn · Own
                 </div>
@@ -777,9 +778,9 @@ function FaqItem({
   return (
     <div
       style={{
-        border: "1px solid #e8edf3",
+        border: "1px solid #DCE8FA",
         borderRadius: 10,
-        background: "#fff",
+        background: "#FEFEFE",
         overflow: "hidden",
       }}
     >
@@ -795,8 +796,8 @@ function FaqItem({
           width: "100%",
           padding: 19,
           border: 0,
-          background: "#fff",
-          color: "#102b46",
+          background: "#FEFEFE",
+          color: "#102B46",
           textAlign: "left",
           fontSize: 13,
           fontWeight: 700,
@@ -809,7 +810,7 @@ function FaqItem({
           animate={{ rotate: open ? 180 : 0 }}
           style={{ display: "flex", flexShrink: 0 }}
         >
-          <ChevronDown size={18} />
+          <ChevronDown size={18} color="#0A66EC" />
         </motion.span>
       </button>
 
@@ -826,7 +827,7 @@ function FaqItem({
               style={{
                 margin: 0,
                 padding: "0 19px 19px",
-                color: "#687586",
+                color: "#526174",
                 fontSize: 12,
                 lineHeight: 1.9,
               }}

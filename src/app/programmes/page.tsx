@@ -84,11 +84,11 @@ export default function ProgrammesPage() {
         <section
           style={{
             background:
-              "radial-gradient(ellipse at 85% 20%, #dff8f1, transparent 35%), #f5f8ff",
+              "radial-gradient(ellipse at 85% 20%, #DCEBFF, transparent 35%), #F4F8FF",
             padding: "65px 0",
           }}
         >
-          <div className="container" data-aos="fade-up">
+          <div className="container">
             <div className="eyebrow">
               <Sparkles size={17} />
               Explore your next opportunity
@@ -102,7 +102,10 @@ export default function ProgrammesPage() {
                 margin: "18px 0 14px",
               }}
             >
-              Find Your Next <span style={{ color: "#20a991" }}>Programme</span>
+              Find Your Next{" "}
+              <span style={{ color: "#0A66EC" }}>
+                Programme
+              </span>
             </h1>
 
             <p
@@ -135,7 +138,7 @@ export default function ProgrammesPage() {
                     display: "inline",
                     verticalAlign: "middle",
                     marginRight: 7,
-                    color: "#20a991",
+                    color: "#0A66EC",
                   }}
                 />
                 {courses.length} sample programmes
@@ -168,10 +171,10 @@ export default function ProgrammesPage() {
                   gap: 10,
                   flex: "1 1 280px",
                   minHeight: 50,
-                  border: "1px solid #e8edf3",
+                  border: "1px solid #DCE8FA",
                   borderRadius: 8,
                   padding: "0 15px",
-                  background: "#fff",
+                  background: "#FEFEFE",
                 }}
               >
                 <Search size={19} color="#687586" />
@@ -202,6 +205,7 @@ export default function ProgrammesPage() {
                       placeItems: "center",
                       border: 0,
                       background: "transparent",
+                      cursor: "pointer",
                     }}
                   >
                     <X size={17} />
@@ -224,10 +228,10 @@ export default function ProgrammesPage() {
                   aria-label="Filter by difficulty level"
                   style={{
                     minHeight: 48,
-                    border: "1px solid #e8edf3",
+                    border: "1px solid #DCE8FA",
                     borderRadius: 8,
                     padding: "0 12px",
-                    background: "white",
+                    background: "#FEFEFE",
                     color: "#102b46",
                     fontSize: 13,
                   }}
@@ -257,17 +261,18 @@ export default function ProgrammesPage() {
                   style={{
                     border:
                       category === item
-                        ? "1px solid #20a991"
-                        : "1px solid #e8edf3",
+                        ? "1px solid #0A66EC"
+                        : "1px solid #DCE8FA",
                     borderRadius: 30,
                     padding: "11px 16px",
                     background:
-                      category === item ? "#e3f8f1" : "white",
+                      category === item ? "#DCEBFF" : "#FEFEFE",
                     color:
-                      category === item ? "#168c78" : "#526174",
+                      category === item ? "#185EC1" : "#526174",
                     fontSize: 12,
                     fontWeight: 700,
                     transition: "all 180ms ease",
+                    cursor: "pointer",
                   }}
                 >
                   {item}
@@ -313,7 +318,7 @@ export default function ProgrammesPage() {
                 <button
                   onClick={clearFilters}
                   className="outline-btn"
-                  style={{ background: "white" }}
+                  style={{ background: "#FEFEFE" }}
                 >
                   Clear Filters <X size={15} />
                 </button>
@@ -355,14 +360,14 @@ export default function ProgrammesPage() {
                 style={{
                   padding: "65px 20px",
                   textAlign: "center",
-                  border: "1px dashed #d8e0e9",
+                  border: "1px dashed #DCE8FA",
                   borderRadius: 15,
-                  background: "#fafbfd",
+                  background: "#F4F8FF",
                 }}
               >
                 <Search
                   size={35}
-                  color="#20a991"
+                  color="#0A66EC"
                   style={{ margin: "0 auto 15px" }}
                 />
 
@@ -393,7 +398,10 @@ export default function ProgrammesPage() {
           <div className="container">
             <div className="cta-card" data-aos="zoom-in">
               <div>
-                <div className="eyebrow" style={{ color: "#77e2cb" }}>
+                <div
+                  className="eyebrow"
+                  style={{ color: "#91B8F7" }}
+                >
                   Your future starts with learning
                 </div>
 

@@ -96,7 +96,7 @@ export default function AboutPage() {
             overflow: "hidden",
             padding: "85px 0 90px",
             background:
-              "radial-gradient(ellipse at 85% 15%, #d8f7ed, transparent 35%), #f5f8ff",
+              "radial-gradient(ellipse at 85% 15%, #DCEBFF, transparent 35%), #F4F8FF",
           }}
         >
           <div className="container">
@@ -122,7 +122,7 @@ export default function AboutPage() {
               >
                 Learn Today.
                 <br />
-                <span style={{ color: "#20a991" }}>
+                <span style={{ color: "#0A66EC" }}>
                   Build What&apos;s Next.
                 </span>
               </h1>
@@ -156,7 +156,7 @@ export default function AboutPage() {
                 <Link
                   href="/contact"
                   className="outline-btn"
-                  style={{ background: "#fff" }}
+                  style={{ background: "#FEFEFE" }}
                 >
                   Contact Us
                 </Link>
@@ -183,7 +183,7 @@ export default function AboutPage() {
                 overflow: "hidden",
                 borderRadius: 18,
                 minHeight: 330,
-                background: "#e7f5f1",
+                background: "#EAF2FF",
               }}
             >
               <img
@@ -213,7 +213,7 @@ export default function AboutPage() {
                   left: 22,
                   right: 22,
                   bottom: 22,
-                  color: "#fff",
+                  color: "#FEFEFE",
                 }}
               >
                 <p
@@ -221,7 +221,7 @@ export default function AboutPage() {
                     fontSize: 11,
                     textTransform: "uppercase",
                     letterSpacing: 1.4,
-                    color: "#9be9d7",
+                    color: "#91B8F7",
                     fontWeight: 800,
                   }}
                 >
@@ -298,7 +298,7 @@ export default function AboutPage() {
                   >
                     <CheckCircle2
                       size={19}
-                      color="#20a991"
+                      color="#0A66EC"
                       style={{ flexShrink: 0 }}
                     />
                     {principle}
@@ -313,7 +313,7 @@ export default function AboutPage() {
         <section
           style={{
             padding: "75px 0",
-            background: "#f6f8fc",
+            background: "#F4F8FF",
           }}
         >
           <div className="container">
@@ -347,8 +347,8 @@ export default function AboutPage() {
                 style={{
                   padding: 30,
                   borderRadius: 15,
-                  border: "1px solid #e8edf3",
-                  background: "#fff",
+                  border: "1px solid #DCE8FA",
+                  background: "#FEFEFE",
                 }}
               >
                 <div className="category-icon">
@@ -379,8 +379,8 @@ export default function AboutPage() {
                 style={{
                   padding: 30,
                   borderRadius: 15,
-                  border: "1px solid #e8edf3",
-                  background: "#fff",
+                  border: "1px solid #DCE8FA",
+                  background: "#FEFEFE",
                 }}
               >
                 <div className="category-icon">
@@ -449,9 +449,9 @@ export default function AboutPage() {
                     whileHover={{ y: -5 }}
                     style={{
                       padding: 23,
-                      border: "1px solid #e8edf3",
+                      border: "1px solid #DCE8FA",
                       borderRadius: 13,
-                      background: "#fff",
+                      background: "#FEFEFE",
                     }}
                   >
                     <div className="category-icon">
@@ -486,7 +486,7 @@ export default function AboutPage() {
         </section>
 
         {/* LEARNING AREAS */}
-        <section style={{ padding: "75px 0", background: "#f6f8fc" }}>
+        <section style={{ padding: "75px 0", background: "#F4F8FF" }}>
           <div className="container">
             <div className="section-heading" style={{ textAlign: "center" }}>
               <div
@@ -525,9 +525,9 @@ export default function AboutPage() {
                     transition={{ duration: 0.35, delay: index * 0.07 }}
                     style={{
                       padding: 23,
-                      background: "#fff",
+                      background: "#FEFEFE",
                       borderRadius: 13,
-                      border: "1px solid #e8edf3",
+                      border: "1px solid #DCE8FA",
                     }}
                   >
                     <div className="category-icon">
@@ -561,7 +561,7 @@ export default function AboutPage() {
                         display: "inline-flex",
                         alignItems: "center",
                         gap: 7,
-                        color: "#168c78",
+                        color: "#185EC1",
                         fontSize: 12,
                         fontWeight: 800,
                       }}
@@ -585,7 +585,7 @@ export default function AboutPage() {
               viewport={{ once: true }}
             >
               <div>
-                <div className="eyebrow" style={{ color: "#77e2cb" }}>
+                <div className="eyebrow" style={{ color: "#91B8F7" }}>
                   <Sparkles size={16} />
                   Access · Learn · Own
                 </div>
