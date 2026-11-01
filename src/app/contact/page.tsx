@@ -1,4 +1,3 @@
-
 "use client";
 
 import { FormEvent, useState } from "react";
@@ -134,12 +133,12 @@ export default function ContactPage() {
   const inputStyle = {
     width: "100%",
     boxSizing: "border-box" as const,
-    border: "1px solid #DCE8FA",
+    border: "1px solid #91B8F7",
     borderRadius: 9,
     padding: "13px 14px",
     outline: "none",
     background: "#FEFEFE",
-    color: "#102B46",
+    color: "#185EC1",
     fontSize: 13,
   };
 
@@ -153,7 +152,7 @@ export default function ContactPage() {
           style={{
             padding: "75px 0 65px",
             background:
-              "radial-gradient(ellipse at 80% 10%, #DCEBFF, transparent 35%), #F4F8FF",
+              "radial-gradient(ellipse at 80% 10%, #91B8F7, transparent 35%), #FEFEFE",
           }}
         >
           <motion.div
@@ -187,7 +186,7 @@ export default function ContactPage() {
             <p
               style={{
                 maxWidth: 620,
-                color: "#526174",
+                color: "#185EC1",
                 fontSize: 15,
                 lineHeight: 1.9,
                 margin: 0,
@@ -217,10 +216,10 @@ export default function ContactPage() {
               viewport={{ once: true }}
               style={{
                 padding: 28,
-                border: "1px solid #DCE8FA",
+                border: "1px solid #91B8F7",
                 borderRadius: 15,
                 background: "#FEFEFE",
-                boxShadow: "0 12px 35px #102B4608",
+                boxShadow: "0 12px 35px #185EC108",
               }}
             >
               <div className="eyebrow">
@@ -240,7 +239,7 @@ export default function ContactPage() {
 
               <p
                 style={{
-                  color: "#526174",
+                  color: "#185EC1",
                   fontSize: 13,
                   lineHeight: 1.8,
                   marginBottom: 25,
@@ -287,7 +286,7 @@ export default function ContactPage() {
                       }
                       style={{
                         ...inputStyle,
-                        borderColor: errors.name ? "#DC2626" : "#DCE8FA",
+                        borderColor: errors.name ? "#DC2626" : "#91B8F7",
                       }}
                     />
 
@@ -334,7 +333,7 @@ export default function ContactPage() {
                       }
                       style={{
                         ...inputStyle,
-                        borderColor: errors.email ? "#DC2626" : "#DCE8FA",
+                        borderColor: errors.email ? "#DC2626" : "#91B8F7",
                       }}
                     />
 
@@ -421,7 +420,7 @@ export default function ContactPage() {
                         lineHeight: 1.8,
                         borderColor: errors.message
                           ? "#DC2626"
-                          : "#DCE8FA",
+                          : "#91B8F7",
                       }}
                     />
 
@@ -431,7 +430,7 @@ export default function ContactPage() {
                         justifyContent: "space-between",
                         gap: 12,
                         fontSize: 11,
-                        color: "#526174",
+                        color: "#185EC1",
                         marginTop: 6,
                       }}
                     >
@@ -465,7 +464,7 @@ export default function ContactPage() {
                         padding: 15,
                         marginTop: 20,
                         borderRadius: 9,
-                        background: "#DCEBFF",
+                        background: "#91B8F7",
                         color: "#185EC1",
                         fontSize: 12,
                         lineHeight: 1.8,
@@ -500,7 +499,7 @@ export default function ContactPage() {
 
                 <p
                   style={{
-                    color: "#526174",
+                    color: "#185EC1",
                     fontSize: 11,
                     lineHeight: 1.8,
                     marginTop: 13,
@@ -539,7 +538,7 @@ export default function ContactPage() {
 
                 <p
                   style={{
-                    color: "#E5EEFF",
+                    color: "#FEFEFE",
                     fontSize: 13,
                     lineHeight: 1.9,
                     margin: 0,
@@ -607,7 +606,7 @@ export default function ContactPage() {
                       alignItems: "flex-start",
                       gap: 15,
                       padding: 20,
-                      border: "1px solid #DCE8FA",
+                      border: "1px solid #91B8F7",
                       borderRadius: 12,
                       background: "#FEFEFE",
                     }}
@@ -615,7 +614,7 @@ export default function ContactPage() {
                     <div
                       className="category-icon"
                       style={{
-                        background: "#DCEBFF",
+                        background: "#91B8F7",
                         color: "#0A66EC",
                       }}
                     >
@@ -629,7 +628,7 @@ export default function ContactPage() {
 
                       <p
                         style={{
-                          color: "#526174",
+                          color: "#185EC1",
                           fontSize: 12,
                           lineHeight: 1.8,
                           margin: "0 0 7px",
@@ -658,8 +657,8 @@ export default function ContactPage() {
                   gap: 12,
                   padding: 18,
                   borderRadius: 12,
-                  background: "#F4F8FF",
-                  color: "#526174",
+                  background: "#91B8F7",
+                  color: "#185EC1",
                 }}
               >
                 <MapPin
@@ -675,7 +674,7 @@ export default function ContactPage() {
                     margin: 0,
                   }}
                 >
-                  <strong style={{ color: "#102B46" }}>
+                  <strong style={{ color: "#185EC1" }}>
                     Location &amp; Availability
                   </strong>
                   <br />
@@ -689,7 +688,7 @@ export default function ContactPage() {
                   display: "flex",
                   alignItems: "flex-start",
                   gap: 10,
-                  color: "#526174",
+                  color: "#185EC1",
                   fontSize: 11,
                   lineHeight: 1.8,
                   padding: "0 5px",
@@ -700,6 +699,7 @@ export default function ContactPage() {
                   color="#0A66EC"
                   style={{ flexShrink: 0 }}
                 />
+
                 <span>
                   We aim to handle learner enquiries responsibly. Avoid
                   sending confidential account or payment information.
@@ -710,7 +710,7 @@ export default function ContactPage() {
         </section>
 
         {/* FAQ */}
-        <section style={{ padding: "65px 0", background: "#F4F8FF" }}>
+        <section style={{ padding: "65px 0", background: "#FEFEFE" }}>
           <div className="container" style={{ maxWidth: 850 }}>
             <div className="section-heading" style={{ textAlign: "center" }}>
               <div className="eyebrow" style={{ justifyContent: "center" }}>
@@ -760,6 +760,188 @@ export default function ContactPage() {
       </main>
 
       <Footer />
+
+      <style jsx global>{`
+        .contact-layout {
+          width: min(1120px, calc(100% - 40px));
+          margin-inline: auto;
+        }
+
+        .contact-layout input,
+        .contact-layout select,
+        .contact-layout textarea {
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .contact-layout input:focus,
+        .contact-layout select:focus,
+        .contact-layout textarea:focus {
+          border-color: #0A66EC !important;
+          box-shadow: 0 0 0 3px rgba(10, 102, 236, 0.12);
+        }
+
+        .contact-layout button.primary-btn,
+        .cta-card .primary-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 9px;
+          padding: 14px 20px;
+          border-radius: 9px;
+          background: #0A66EC;
+          color: #FEFEFE;
+          font-weight: 700;
+          transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .contact-layout button.primary-btn:hover,
+        .cta-card .primary-btn:hover {
+          background: #185EC1;
+          transform: translateY(-2px);
+        }
+
+        .eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          color: #0A66EC;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.04em;
+        }
+
+        .cta-section {
+          padding: 65px 0;
+          background: #FEFEFE;
+        }
+
+        .cta-section .container {
+          width: min(1120px, calc(100% - 40px));
+          margin-inline: auto;
+        }
+
+        .cta-card {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 28px;
+          padding: clamp(25px, 5vw, 45px);
+          border-radius: 18px;
+          background: linear-gradient(120deg, #185EC1, #0A66EC);
+          color: #FEFEFE;
+        }
+
+        .cta-card h2 {
+          margin: 14px 0 10px;
+          font-size: clamp(25px, 4vw, 36px);
+          font-weight: 800;
+        }
+
+        .cta-card p {
+          max-width: 600px;
+          margin: 0;
+          color: #FEFEFE;
+          font-size: 13px;
+          line-height: 1.8;
+        }
+
+        .cta-card .primary-btn {
+          flex-shrink: 0;
+          background: #FEFEFE;
+          color: #0A66EC;
+        }
+
+        .cta-card .primary-btn:hover {
+          background: #91B8F7;
+          color: #185EC1;
+        }
+
+        @media (max-width: 900px) {
+          .contact-layout {
+            grid-template-columns: minmax(0, 1fr) !important;
+            gap: 28px !important;
+          }
+
+          .contact-layout > div:last-child {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .contact-layout > div:last-child > div:first-child {
+            grid-column: 1 / -1;
+          }
+
+          .cta-card {
+            align-items: flex-start;
+          }
+        }
+
+        @media (max-width: 600px) {
+          main > section:first-child {
+            padding: 58px 0 48px !important;
+          }
+
+          .contact-layout {
+            width: min(100% - 28px, 520px);
+            gap: 22px !important;
+          }
+
+          .contact-layout > div:first-child {
+            padding: 21px !important;
+          }
+
+          .contact-fields {
+            grid-template-columns: minmax(0, 1fr) !important;
+            gap: 15px !important;
+          }
+
+          .contact-fields > div {
+            grid-column: 1 / -1 !important;
+          }
+
+          .contact-layout > div:last-child {
+            grid-template-columns: minmax(0, 1fr);
+          }
+
+          .contact-layout > div:last-child > div:first-child {
+            grid-column: auto;
+          }
+
+          .cta-section {
+            padding: 45px 0;
+          }
+
+          .cta-section .container {
+            width: min(100% - 28px, 520px);
+          }
+
+          .cta-card {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 22px;
+            padding: 25px 21px;
+          }
+
+          .cta-card .primary-btn {
+            width: 100%;
+          }
+
+          main > section:last-of-type {
+            padding: 45px 0 !important;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .contact-layout > div:first-child {
+            padding: 17px !important;
+          }
+
+          .contact-layout input,
+          .contact-layout select,
+          .contact-layout textarea {
+            font-size: 12px !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
@@ -778,7 +960,7 @@ function FaqItem({
   return (
     <div
       style={{
-        border: "1px solid #DCE8FA",
+        border: "1px solid #91B8F7",
         borderRadius: 10,
         background: "#FEFEFE",
         overflow: "hidden",
@@ -797,7 +979,7 @@ function FaqItem({
           padding: 19,
           border: 0,
           background: "#FEFEFE",
-          color: "#102B46",
+          color: "#185EC1",
           textAlign: "left",
           fontSize: 13,
           fontWeight: 700,
@@ -827,7 +1009,7 @@ function FaqItem({
               style={{
                 margin: 0,
                 padding: "0 19px 19px",
-                color: "#526174",
+                color: "#185EC1",
                 fontSize: 12,
                 lineHeight: 1.9,
               }}
