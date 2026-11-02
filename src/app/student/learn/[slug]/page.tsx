@@ -3,7 +3,9 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import type { ReactNode } from "react";
+
 import {
   ArrowLeft,
   ArrowRight,
@@ -19,7 +21,6 @@ import {
   GraduationCap,
   ListVideo,
   Menu,
-  MessageSquareText,
   Play,
   StickyNote,
   Video,
@@ -32,15 +33,14 @@ type Lesson = {
   type: "video" | "reading" | "quiz";
 };
 
-const courseData: Record<
-  string,
-  {
-    title: string;
-    category: string;
-    description: string;
-    lessons: Lesson[];
-  }
-> = {
+type Course = {
+  title: string;
+  category: string;
+  description: string;
+  lessons: Lesson[];
+};
+
+const courseData: Record<string, Course> = {
   "html-css": {
     title: "HTML & CSS Fundamentals",
     category: "Frontend Development",
@@ -57,6 +57,7 @@ const courseData: Record<
       { id: 8, title: "Build Your First Web Page", duration: "30 min", type: "quiz" },
     ],
   },
+
   javascript: {
     title: "JavaScript for Beginners",
     category: "Programming",
@@ -73,6 +74,7 @@ const courseData: Record<
       { id: 8, title: "JavaScript Practice Quiz", duration: "15 min", type: "quiz" },
     ],
   },
+
   cybersecurity: {
     title: "Introduction to Cybersecurity",
     category: "Cybersecurity",
@@ -88,6 +90,7 @@ const courseData: Record<
       { id: 7, title: "Security Knowledge Check", duration: "15 min", type: "quiz" },
     ],
   },
+
   blockchain: {
     title: "Blockchain Development Basics",
     category: "Blockchain & Web3",
@@ -102,6 +105,7 @@ const courseData: Record<
       { id: 6, title: "Blockchain Knowledge Check", duration: "15 min", type: "quiz" },
     ],
   },
+
   solidity: {
     title: "Solidity Smart Contracts",
     category: "Blockchain & Web3",
@@ -118,19 +122,20 @@ const courseData: Record<
   },
 };
 
-const fallbackCourse = {
+const fallbackCourse: Course = {
   title: "Technology Fundamentals",
   category: "Technology",
-  description: "Learn important concepts and develop practical technology skills.",
+  description:
+    "Learn important concepts and develop practical technology skills.",
   lessons: [
-    { id: 1, title: "Welcome to the Course", duration: "5 min", type: "video" as const },
-    { id: 2, title: "Course Fundamentals", duration: "15 min", type: "video" as const },
-    { id: 3, title: "Practice and Review", duration: "20 min", type: "reading" as const },
-    { id: 4, title: "Knowledge Check", duration: "10 min", type: "quiz" as const },
+    { id: 1, title: "Welcome to the Course", duration: "5 min", type: "video" },
+    { id: 2, title: "Course Fundamentals", duration: "15 min", type: "video" },
+    { id: 3, title: "Practice and Review", duration: "20 min", type: "reading" },
+    { id: 4, title: "Knowledge Check", duration: "10 min", type: "quiz" },
   ],
 };
 
-export default function LearningRoomPage() {
+function LearningRoomContent() {
   const params = useParams<{ slug: string }>();
   const slug = params.slug;
 
@@ -147,16 +152,25 @@ export default function LearningRoomPage() {
 
   const currentLesson = course.lessons[currentLessonIndex];
   const completedCount = completedLessons.length;
+
   const progress = Math.round(
     (completedCount / course.lessons.length) * 100
   );
+
   const isCompleted = completedLessons.includes(currentLesson.id);
-  const isLastLesson = currentLessonIndex === course.lessons.length - 1;
+  const isLastLesson =
+    currentLessonIndex === course.lessons.length - 1;
 
   function selectLesson(index: number) {
+    if (index < 0 || index >= course.lessons.length) return;
+
     setCurrentLessonIndex(index);
     setSidebarOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   function toggleLessonComplete() {
@@ -165,19 +179,21 @@ export default function LearningRoomPage() {
         previous.filter((id) => id !== currentLesson.id)
       );
     } else {
-      setCompletedLessons((previous) => [
-        ...previous,
-        currentLesson.id,
-      ]);
+      setCompletedLessons((previous) =>
+        previous.includes(currentLesson.id)
+          ? previous
+          : [...previous, currentLesson.id]
+      );
     }
   }
 
   function goToNextLesson() {
     if (!isCompleted) {
-      setCompletedLessons((previous) => [
-        ...previous,
-        currentLesson.id,
-      ]);
+      setCompletedLessons((previous) =>
+        previous.includes(currentLesson.id)
+          ? previous
+          : [...previous, currentLesson.id]
+      );
     }
 
     if (!isLastLesson) {
@@ -206,9 +222,14 @@ export default function LearningRoomPage() {
             </Link>
 
             <Link href="/" className="hidden items-center gap-2 sm:flex">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0A66EC] text-white">
-                <img src="/dlogo.jpeg" alt="" />
+              <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-[#0A66EC]">
+                <img
+                  src="/dlogo.jpeg"
+                  alt="Decent Learning"
+                  className="h-full w-full object-cover"
+                />
               </div>
+
               <div>
                 <p className="font-extrabold text-[#185EC1]">
                   Decent Learning
@@ -224,6 +245,7 @@ export default function LearningRoomPage() {
             <p className="truncate text-sm font-bold text-slate-800 sm:text-base">
               {course.title}
             </p>
+
             <p className="mt-1 text-xs text-slate-500">
               Lesson {currentLessonIndex + 1} of {course.lessons.length}
             </p>
@@ -279,6 +301,7 @@ export default function LearningRoomPage() {
 
             <div className="mt-5 flex items-center justify-between text-sm">
               <span className="text-slate-500">Your progress</span>
+
               <span className="font-extrabold text-[#0A66EC]">
                 {progress}%
               </span>
@@ -306,6 +329,7 @@ export default function LearningRoomPage() {
                 <ListVideo size={19} className="text-[#0A66EC]" />
                 Course lessons
               </span>
+
               <ChevronDown
                 size={18}
                 className={`transition-transform ${
@@ -352,6 +376,7 @@ export default function LearningRoomPage() {
                         >
                           {index + 1}. {lesson.title}
                         </p>
+
                         <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-400">
                           <Clock3 size={12} />
                           {lesson.duration}
@@ -375,9 +400,11 @@ export default function LearningRoomPage() {
             <p className="text-sm font-bold text-[#185EC1]">
               Need some help?
             </p>
+
             <p className="mt-2 text-xs leading-5 text-slate-600">
               Contact support if you have a question about your learning.
             </p>
+
             <Link
               href="/contact"
               className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-[#0A66EC]"
@@ -398,14 +425,18 @@ export default function LearningRoomPage() {
                 >
                   Dashboard
                 </Link>
+
                 <ChevronRight size={14} />
+
                 <Link
                   href="/student/courses"
                   className="hover:text-[#0A66EC]"
                 >
                   My Courses
                 </Link>
+
                 <ChevronRight size={14} />
+
                 <span className="text-[#0A66EC]">
                   Lesson {currentLessonIndex + 1}
                 </span>
@@ -428,6 +459,7 @@ export default function LearningRoomPage() {
             <section className="overflow-hidden rounded-2xl border border-blue-100 bg-white shadow-sm">
               <div className="relative flex aspect-video min-h-[220px] items-center justify-center overflow-hidden bg-gradient-to-br from-[#0A66EC] via-[#227BEA] to-[#185EC1] p-6 text-center sm:min-h-[350px]">
                 <div className="pointer-events-none absolute -right-12 -top-16 h-64 w-64 rounded-full border-[35px] border-white/10" />
+
                 <div className="pointer-events-none absolute -bottom-24 -left-10 h-56 w-56 rounded-full bg-white/10 blur-2xl" />
 
                 <div className="relative z-10 max-w-lg text-white">
@@ -471,11 +503,13 @@ export default function LearningRoomPage() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-[#0A66EC]">
                     <BookOpen size={20} />
                   </div>
+
                   <div>
                     <p className="text-sm font-bold text-slate-800">
                       Lesson {currentLessonIndex + 1} of{" "}
                       {course.lessons.length}
                     </p>
+
                     <p className="mt-1 text-xs text-slate-500">
                       Estimated time: {currentLesson.duration}
                     </p>
@@ -545,6 +579,7 @@ export default function LearningRoomPage() {
                         <GraduationCap size={19} />
                         Learning tip
                       </h3>
+
                       <p className="mt-2 text-sm leading-6 text-slate-600">
                         Take notes, practise each concept on your computer and
                         revisit lessons whenever you need a refresher.
@@ -558,6 +593,7 @@ export default function LearningRoomPage() {
                     <h2 className="text-lg font-extrabold text-slate-900">
                       My lesson notes
                     </h2>
+
                     <p className="mt-2 text-sm leading-6 text-slate-500">
                       Write down key points, questions and things you want to
                       practise.
@@ -583,6 +619,7 @@ export default function LearningRoomPage() {
                     <h2 className="text-lg font-extrabold text-slate-900">
                       Learning resources
                     </h2>
+
                     <p className="mt-2 text-sm leading-6 text-slate-500">
                       Supporting files and links for this lesson can be listed
                       here.
@@ -593,10 +630,12 @@ export default function LearningRoomPage() {
                         size={22}
                         className="mt-0.5 shrink-0 text-[#0A66EC]"
                       />
+
                       <div>
                         <p className="font-bold text-slate-800">
                           Course materials
                         </p>
+
                         <p className="mt-1 text-sm leading-6 text-slate-500">
                           No downloadable resources have been added to this
                           demo lesson yet.
@@ -633,13 +672,15 @@ export default function LearningRoomPage() {
                     goToNextLesson();
                   }
                 }}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A66EC] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#185EC1]"
+                disabled={isLastLesson && isCompleted}
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0A66EC] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#185EC1] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isLastLesson
                   ? isCompleted
                     ? "Course completed"
                     : "Complete final lesson"
                   : "Next lesson"}
+
                 {isLastLesson ? (
                   <CheckCircle2 size={17} />
                 ) : (
@@ -648,6 +689,7 @@ export default function LearningRoomPage() {
               </button>
             </section>
 
+            {/* Course completion */}
             {progress === 100 && (
               <div className="mt-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-5">
                 <div className="flex items-start gap-3">
@@ -655,10 +697,12 @@ export default function LearningRoomPage() {
                     size={24}
                     className="shrink-0 text-emerald-600"
                   />
+
                   <div>
                     <h3 className="font-extrabold text-emerald-800">
                       Well done! You completed this course.
                     </h3>
+
                     <p className="mt-2 text-sm leading-6 text-emerald-700">
                       You have marked every lesson complete in this demo.
                       Permanent progress and certificate generation will need
@@ -668,11 +712,6 @@ export default function LearningRoomPage() {
                 </div>
               </div>
             )}
-
-            {/* <footer className="mt-10 border-t border-blue-100 py-6 text-center text-xs text-slate-400">
-              © {new Date().getFullYear()} Decent Learning · Access • Learn •
-              Own
-            </footer> */}
           </div>
         </main>
       </div>
@@ -683,8 +722,8 @@ export default function LearningRoomPage() {
 type TabButtonProps = {
   active: boolean;
   onClick: () => void;
-  icon: React.ReactNode;
-  children: React.ReactNode;
+  icon: ReactNode;
+  children: ReactNode;
 };
 
 function TabButton({
@@ -706,5 +745,25 @@ function TabButton({
       {icon}
       {children}
     </button>
+  );
+}
+
+export default function LearningRoomPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[#F4F8FF]">
+          <div className="text-center">
+            <div className="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-blue-100 border-t-[#0A66EC]" />
+
+            <p className="mt-4 text-sm font-semibold text-[#185EC1]">
+              Loading your learning room...
+            </p>
+          </div>
+        </div>
+      }
+    >
+      <LearningRoomContent />
+    </Suspense>
   );
 }
