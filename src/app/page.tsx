@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -25,14 +24,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 const categories = [
-  { name: "Web Development", icon: Code2, color: "#e3f8f1" },
-  { name: "Blockchain & Web3", icon: Wallet, color: "#f1eaff" },
-  { name: "Cybersecurity", icon: ShieldCheck, color: "#fff0e8" },
-  { name: "Artificial Intelligence", icon: BrainCircuit, color: "#e9f4ff" },
-  { name: "Programming", icon: Laptop, color: "#fff5dc" },
-  { name: "Smart Contract Auditing", icon: ShieldCheck, color: "#fce8f1" },
-  { name: "Cloud & DevOps", icon: Zap, color: "#e4f7ff" },
-  { name: "Career Development", icon: GraduationCap, color: "#eeeaff" },
+  { name: "Web Development", icon: Code2, color: "#EAF2FF" },
+  { name: "Blockchain & Web3", icon: Wallet, color: "#E8F0FF" },
+  { name: "Cybersecurity", icon: ShieldCheck, color: "#EEF5FF" },
+  { name: "Artificial Intelligence", icon: BrainCircuit, color: "#E5EFFF" },
+  { name: "Programming", icon: Laptop, color: "#F0F6FF" },
+  { name: "Smart Contract Auditing", icon: ShieldCheck, color: "#EAF2FF" },
+  { name: "Cloud & DevOps", icon: Zap, color: "#E8F3FF" },
+  { name: "Career Development", icon: GraduationCap, color: "#F0F5FF" },
 ];
 
 const courses: Course[] = [
@@ -181,7 +180,7 @@ export default function HomePage() {
     <>
       <Navbar />
 
-      <main>
+      <main className="decent-home">
         {/* HERO SECTION */}
         <section className="hero">
           <div className="container hero-grid">
@@ -226,7 +225,7 @@ export default function HomePage() {
                     display: "inline",
                     verticalAlign: "middle",
                     marginRight: 5,
-                    color: "#289ed8",
+                    color: "#0A66EC",
                   }}
                 />
                 Learn at your own pace · Build real-world skills
@@ -387,7 +386,10 @@ export default function HomePage() {
         </section>
 
         {/* POPULAR COURSES */}
-        <section className="section" style={{ background: "#fff" }}>
+        <section
+          className="section courses-section"
+          style={{ background: "#FEFEFE" }}
+        >
           <div className="container">
             <motion.div
               className="section-heading"
@@ -437,7 +439,10 @@ export default function HomePage() {
         </section>
 
         {/* LEARNING BENEFITS */}
-        <section className="section" style={{ background: "#f7f9fc" }}>
+        <section
+          className="section benefits-section"
+          style={{ background: "#F4F8FF" }}
+        >
           <div className="container">
             <motion.div
               className="section-heading center"
@@ -513,7 +518,7 @@ export default function HomePage() {
               <div>
                 <div
                   className="eyebrow"
-                  style={{ color: "#bfeaff" }}
+                  style={{ color: "#DCEAFF" }}
                 >
                   <Sparkles size={16} />
                   Your journey starts here
@@ -538,6 +543,312 @@ export default function HomePage() {
             </motion.div>
           </div>
         </section>
+
+        {/* RESPONSIVE BLUE THEME STYLES */}
+        <style jsx global>{`
+          .decent-home {
+            --dl-primary: #0A66EC;
+            --dl-bright: #227BEA;
+            --dl-deep: #185EC1;
+            --dl-light: #5B99F6;
+            --dl-pale: #91B8F7;
+            --dl-white: #FEFEFE;
+            --dl-ink: #102746;
+            --dl-muted: #64748B;
+            color: var(--dl-ink);
+            background: var(--dl-white);
+            overflow: hidden;
+          }
+
+          .decent-home .hero {
+            background: linear-gradient(
+              125deg,
+              #FEFEFE 0%,
+              #F2F7FF 58%,
+              #EAF2FF 100%
+            );
+            position: relative;
+          }
+
+          .decent-home .hero::before {
+            content: "";
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            right: -150px;
+            top: -150px;
+            background: radial-gradient(
+              circle,
+              rgba(145,184,247,.32),
+              transparent 70%
+            );
+            pointer-events: none;
+          }
+
+          .decent-home h1 span,
+          .decent-home .section-heading h2 span {
+            color: var(--dl-primary);
+          }
+
+          .decent-home .eyebrow {
+            color: var(--dl-primary);
+          }
+
+          .decent-home .eyebrow svg {
+            color: var(--dl-bright);
+          }
+
+          .decent-home .hero-description,
+          .decent-home .section-heading p,
+          .decent-home .promo-card p,
+          .decent-home .cta-card p {
+            color: var(--dl-muted);
+          }
+
+          .decent-home .primary-btn {
+            background: linear-gradient(
+              135deg,
+              var(--dl-primary),
+              var(--dl-bright)
+            );
+            color: #fff;
+            border: 1px solid var(--dl-primary);
+            box-shadow: 0 10px 24px rgba(10,102,236,.18);
+            transition:
+              transform .2s ease,
+              box-shadow .2s ease,
+              background .2s ease;
+          }
+
+          .decent-home .primary-btn:hover {
+            background: linear-gradient(
+              135deg,
+              var(--dl-deep),
+              var(--dl-primary)
+            );
+            box-shadow: 0 14px 28px rgba(10,102,236,.25);
+            transform: translateY(-2px);
+          }
+
+          .decent-home .outline-btn {
+            color: var(--dl-primary);
+            border: 1px solid rgba(10,102,236,.35);
+            background: rgba(254,254,254,.85);
+          }
+
+          .decent-home .outline-btn:hover {
+            color: var(--dl-deep);
+            border-color: var(--dl-primary);
+            background: #EAF2FF;
+          }
+
+          .decent-home .hero-note svg {
+            color: var(--dl-primary) !important;
+          }
+
+          .decent-home .hero-orbit {
+            border-color: rgba(91,153,246,.45);
+            background: radial-gradient(
+              circle,
+              rgba(145,184,247,.22),
+              transparent 68%
+            );
+          }
+
+          .decent-home .floating-card,
+          .decent-home .category-pill,
+          .decent-home .promo-card {
+            background: #fff;
+            border: 1px solid #E1EBFC;
+            box-shadow: 0 12px 35px rgba(24,94,193,.07);
+          }
+
+          .decent-home .floating-icon,
+          .decent-home .category-icon {
+            color: var(--dl-primary);
+            background: #EAF2FF;
+          }
+
+          .decent-home .category-pill:hover {
+            border-color: var(--dl-pale);
+            box-shadow: 0 16px 34px rgba(10,102,236,.12);
+          }
+
+          .decent-home .promo-card {
+            background: linear-gradient(
+              135deg,
+              #F4F8FF,
+              #EAF2FF
+            );
+          }
+
+          .decent-home .promo-card.blue {
+            background: linear-gradient(
+              135deg,
+              #0A66EC,
+              #185EC1
+            );
+            color: #fff;
+            border-color: transparent;
+          }
+
+          .decent-home .promo-card.blue h3,
+          .decent-home .promo-card.blue .eyebrow {
+            color: #fff;
+          }
+
+          .decent-home .promo-card.blue p {
+            color: #E6F0FF;
+          }
+
+          .decent-home .promo-card.blue .primary-btn {
+            background: #fff;
+            color: var(--dl-primary);
+            border-color: #fff;
+          }
+
+          .decent-home .promo-decoration {
+            background: radial-gradient(
+              circle,
+              rgba(91,153,246,.28),
+              transparent 70%
+            );
+          }
+
+          .decent-home .courses-section {
+            background: #FEFEFE !important;
+          }
+
+          .decent-home .benefits-section {
+            background: #F4F8FF !important;
+          }
+
+          .decent-home .cta-section {
+            background: linear-gradient(
+              135deg,
+              #EAF2FF,
+              #F6F9FF
+            );
+          }
+
+          .decent-home .cta-card {
+            background: linear-gradient(
+              120deg,
+              #0A66EC,
+              #185EC1
+            );
+            color: #fff;
+            border: 1px solid rgba(145,184,247,.35);
+            box-shadow: 0 18px 45px rgba(10,102,236,.18);
+          }
+
+          .decent-home .cta-card h2,
+          .decent-home .cta-card p {
+            color: #fff;
+          }
+
+          .decent-home .cta-card .primary-btn {
+            background: #fff;
+            color: var(--dl-primary);
+            border-color: #fff;
+          }
+
+          /* TABLET */
+          @media (max-width: 900px) {
+            .decent-home .hero-grid {
+              grid-template-columns: 1fr;
+            }
+
+            .decent-home .hero-visual {
+              width: 100%;
+              max-width: 620px;
+              margin: 25px auto 0;
+            }
+
+            .decent-home .category-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .decent-home .course-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .decent-home .promo-grid {
+              grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+          }
+
+          /* MOBILE */
+          @media (max-width: 600px) {
+            .decent-home .hero {
+              padding-top: 42px;
+              padding-bottom: 48px;
+            }
+
+            .decent-home .hero h1 {
+              font-size: clamp(2.25rem, 10vw, 3.2rem);
+              line-height: 1.12;
+            }
+
+            .decent-home .hero-buttons {
+              flex-wrap: wrap;
+            }
+
+            .decent-home .hero-buttons a {
+              width: 100%;
+              justify-content: center;
+            }
+
+            .decent-home .hero-photo {
+              width: 100%;
+              height: auto;
+              object-fit: cover;
+            }
+
+            .decent-home .floating-card {
+              max-width: calc(100% - 24px);
+            }
+
+            .decent-home .category-grid,
+            .decent-home .course-grid,
+            .decent-home .promo-grid {
+              grid-template-columns: 1fr;
+            }
+
+            .decent-home .category-pill {
+              min-width: 0;
+            }
+
+            .decent-home .section {
+              padding-top: 56px;
+              padding-bottom: 56px;
+            }
+
+            .decent-home .cta-card {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 22px;
+            }
+
+            .decent-home .cta-card .primary-btn {
+              width: 100%;
+              justify-content: center;
+            }
+          }
+
+          /* ACCESSIBILITY: REDUCED MOTION */
+          @media (prefers-reduced-motion: reduce) {
+            .decent-home *,
+            .decent-home *::before,
+            .decent-home *::after {
+              animation-duration: .01ms !important;
+              animation-iteration-count: 1 !important;
+              scroll-behavior: auto !important;
+              transition-duration: .01ms !important;
+            }
+          }
+        `}</style>
       </main>
 
       <Footer />
