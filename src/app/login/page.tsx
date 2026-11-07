@@ -1,8 +1,9 @@
-
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent, type CSSProperties } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 import {
   ArrowRight,
   Eye,
@@ -11,44 +12,122 @@ import {
   LockKeyhole,
   ShieldCheck,
 } from "lucide-react";
+
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ||
+  "https://backend-dlearning.onrender.com";
+
+interface LoginResponse {
+  success?: boolean;
+  message?: string;
+  token?: string;
+  data?: {
+    token?: string;
+    user?: {
+      id?: string;
+      fullName?: string;
+      email?: string;
+      role?: string;
+    };
+  };
+  user?: {
+    id?: string;
+    fullName?: string;
+    email?: string;
+    role?: string;
+  };
+}
+
 export default function LoginPage() {
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (loading) return;
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       toast.error("Please enter a valid email address.");
       return;
     }
 
-    if (!password) {
+    if (!password.trim()) {
       toast.error("Please enter your password.");
       return;
     }
 
-    // Demo only: real authentication will be connected later.
     setLoading(true);
 
     const toastId = toast.loading("Checking your details...");
 
-    window.setTimeout(() => {
-      setLoading(false);
-      toast.dismiss(toastId);
+    try {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: normalizedEmail,
+          password,
+        }),
+      });
+
+      const result: LoginResponse = await response.json();
+
+      if (!response.ok) {
+        toast.error(
+          result.message || "Invalid email or password.",
+          { id: toastId }
+        );
+        return;
+      }
+
+      const token = result.token || result.data?.token;
+
+      if (!token) {
+        toast.error(
+          "Login succeeded, but the authentication token was not returned.",
+          { id: toastId }
+        );
+        return;
+      }
+
+      // Store the authentication token.
+      localStorage.setItem("token", token);
+
+      // Notify Navbar and other components that the user is logged in.
+      window.dispatchEvent(new Event("auth-changed"));
+
+      toast.success(
+        result.message || "Login successful! Welcome back.",
+        { id: toastId }
+      );
+
+      // Redirect the student to the dashboard.
+      router.push("/student/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
 
       toast.error(
-        "Login is not connected yet. Please connect the authentication backend."
+        "Unable to connect to the server. Please try again.",
+        { id: toastId }
       );
-    }, 600);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const inputStyle: React.CSSProperties = {
+  const inputStyle: CSSProperties = {
     width: "100%",
     padding: "14px 15px 14px 45px",
     border: "1px solid #dce5e8",
@@ -60,7 +139,7 @@ export default function LoginPage() {
     boxSizing: "border-box",
   };
 
-  const labelStyle: React.CSSProperties = {
+  const labelStyle: CSSProperties = {
     display: "block",
     marginBottom: "8px",
     color: "#183640",
@@ -78,6 +157,7 @@ export default function LoginPage() {
         color: "#102a35",
       }}
     >
+      {/* Header */}
       <header
         style={{
           padding: "20px 6%",
@@ -97,14 +177,19 @@ export default function LoginPage() {
             fontWeight: 800,
           }}
         >
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0A66EC] text-white">
-            <img src="/dlogo.jpeg" alt="" />
+          <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl bg-[#0A66EC] text-white">
+            <img
+              src="/dlogo.jpeg"
+              alt="Decent Learning logo"
+              className="h-full w-full object-cover"
+            />
           </div>
 
           <div>
             <h1 className="text-xl font-extrabold tracking-tight text-[#185EC1]">
               Decent Learning
             </h1>
+
             <p className="text-xs font-medium text-slate-500">
               Access • Learn • Own
             </p>
@@ -112,6 +197,7 @@ export default function LoginPage() {
         </Link>
       </header>
 
+      {/* Main Section */}
       <section
         style={{
           flex: 1,
@@ -120,6 +206,7 @@ export default function LoginPage() {
             "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
         }}
       >
+        {/* Left Side */}
         <div
           style={{
             background:
@@ -190,11 +277,21 @@ export default function LoginPage() {
               <ShieldCheck size={32} color="#91B8F7" />
 
               <div>
-                <strong style={{ display: "block", marginBottom: "5px" }}>
+                <strong
+                  style={{
+                    display: "block",
+                    marginBottom: "5px",
+                  }}
+                >
                   Your learning journey
                 </strong>
 
-                <span style={{ fontSize: "13px", color: "#EAF2FF" }}>
+                <span
+                  style={{
+                    fontSize: "13px",
+                    color: "#EAF2FF",
+                  }}
+                >
                   One step at a time, one skill at a time.
                 </span>
               </div>
@@ -202,6 +299,7 @@ export default function LoginPage() {
           </motion.div>
         </div>
 
+        {/* Right Side: Login Form */}
         <div
           style={{
             display: "flex",
@@ -256,6 +354,7 @@ export default function LoginPage() {
             </div>
 
             <form onSubmit={handleSubmit}>
+              {/* Email */}
               <div style={{ marginBottom: "20px" }}>
                 <label htmlFor="email" style={labelStyle}>
                   Email address
@@ -285,6 +384,7 @@ export default function LoginPage() {
                 </div>
               </div>
 
+              {/* Password */}
               <div style={{ marginBottom: "14px" }}>
                 <label htmlFor="password" style={labelStyle}>
                   Password
@@ -309,12 +409,17 @@ export default function LoginPage() {
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                     required
-                    style={{ ...inputStyle, paddingRight: "45px" }}
+                    style={{
+                      ...inputStyle,
+                      paddingRight: "45px",
+                    }}
                   />
 
                   <button
                     type="button"
-                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-label={
+                      showPassword ? "Hide password" : "Show password"
+                    }
                     onClick={() => setShowPassword(!showPassword)}
                     style={{
                       position: "absolute",
@@ -326,12 +431,22 @@ export default function LoginPage() {
                       cursor: "pointer",
                     }}
                   >
-                    {showPassword ? <EyeOff size={19} /> : <Eye size={19} />}
+                    {showPassword ? (
+                      <EyeOff size={19} />
+                    ) : (
+                      <Eye size={19} />
+                    )}
                   </button>
                 </div>
               </div>
 
-              <div style={{ textAlign: "right", marginBottom: "24px" }}>
+              {/* Forgot Password */}
+              <div
+                style={{
+                  textAlign: "right",
+                  marginBottom: "24px",
+                }}
+              >
                 <Link
                   href="/forgot-password"
                   style={{
@@ -345,6 +460,7 @@ export default function LoginPage() {
                 </Link>
               </div>
 
+              {/* Submit Button */}
               <button
                 type="submit"
                 disabled={loading}
@@ -362,13 +478,16 @@ export default function LoginPage() {
                   fontWeight: 700,
                   fontSize: "15px",
                   cursor: loading ? "wait" : "pointer",
+                  opacity: loading ? 0.8 : 1,
                 }}
               >
                 {loading ? "Checking details..." : "Sign in"}
+
                 {!loading && <ArrowRight size={18} />}
               </button>
             </form>
 
+            {/* Divider */}
             <div
               style={{
                 display: "flex",
@@ -386,7 +505,9 @@ export default function LoginPage() {
                   flex: 1,
                 }}
               />
+
               OR
+
               <div
                 style={{
                   height: "1px",
@@ -396,6 +517,7 @@ export default function LoginPage() {
               />
             </div>
 
+            {/* Register Link */}
             <p
               style={{
                 textAlign: "center",
@@ -425,25 +547,11 @@ export default function LoginPage() {
                 marginTop: "25px",
               }}
             >
-              Secure sign-in will be available when the authentication
-              backend is connected.
+              Your account is protected by secure authentication.
             </p>
           </motion.div>
         </div>
       </section>
-
-      {/* <footer
-        style={{
-          textAlign: "center",
-          padding: "20px",
-          color: "#758890",
-          fontSize: "12px",
-          background: "#fff",
-          borderTop: "1px solid #e8eff1",
-        }}
-      >
-        © {new Date().getFullYear()} Decent Learning. Access • Learn • Own.
-      </footer> */}
     </main>
   );
 }
