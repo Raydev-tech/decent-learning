@@ -140,7 +140,7 @@ export default function StudentProfilePage() {
 
     try {
       const response = await fetch(
-        `${API_URL}/auth/profile`,
+        `${API_URL}/api/auth/profile`,
         {
           method: "PUT",
           headers: {
