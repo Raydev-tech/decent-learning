@@ -39,16 +39,6 @@ const COLORS = {
   white: "#FEFEFE",
 };
 
-/* =========================================================
-   API CONFIGURATION
-
-   .env.local:
-   NEXT_PUBLIC_API_URL=https://backend-dlearning.onrender.com/api
-
-   Local backend:
-   NEXT_PUBLIC_API_URL=http://localhost:5000/api
-========================================================= */
-
 const API_URL = (
   process.env.NEXT_PUBLIC_API_URL ||
   "https://backend-dlearning.onrender.com/api"
