@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://backend-dlearning.onrender.com";
+  "https://decent-learning-bacend.onrender.com";
 
 interface LoginResponse {
   success?: boolean;

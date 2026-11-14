@@ -41,7 +41,7 @@ const COLORS = {
 
 const API_URL = (
   process.env.NEXT_PUBLIC_API_URL ||
-  "https://backend-dlearning.onrender.com/api"
+  "https://decent-learning-bacend.onrender.com/api"
 ).replace(/\/+$/, "");
 
 const API_BASE_URL = API_URL.endsWith("/api")
